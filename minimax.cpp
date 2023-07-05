@@ -40,13 +40,12 @@ void _max(char *pos, position *ref){
 }
 
 void _min(char *pos,position *ref){
-    position aux;
     acts copias;
     copias.qtd = 0;
     if(check_winner(pos)!=0){
-        aux.val = check_winner(pos);
-        copy_match(pos,aux.array);
-        return aux;
+        ref->val = check_winner(pos);
+        copy_match(pos,ref->array); 
+        return;
     }
 
     for(int i = 0; i < 9; i++)if(pos[i]==0)copias.qtd++;
@@ -64,10 +63,13 @@ void _min(char *pos,position *ref){
     }
 
     for(int i = 0; i < copias.qtd ; i++){
-        copias.acoes[i] = _max(copias.acoes[i].array);
+        _max(copias.acoes[i].array,&(copias.acoes[i]));
     }
 
-    return copias.acoes[search_min(&copias)];
+    ref->val=copias.acoes[search_min(&copias)].val;
+    copy_match(copias.acoes[search_min(&copias)].array,ref->array);
+
+    return;
 }
 
 void copy_match(char*pos,char*ref){
@@ -113,10 +115,10 @@ char do_machine_move(char *pos,bool option){
     position aux;
 
     if(option){
-        aux = _max(pos);
+        _max(pos,&aux);
     }
     else{
-        aux = _min(pos);
+        _min(pos,&aux);
     }
 
     #ifdef DEBUG
