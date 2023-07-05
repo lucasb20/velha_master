@@ -63,6 +63,7 @@ class TicTacToe{
 void play_human_game(TicTacToe*);
 //Impossível    -> -2
 //Draw          -> -1
+//Não temrinal  ->  0
 //X ganhou      ->  1
 //O ganhou      ->  2
 char check_winner(char*);
