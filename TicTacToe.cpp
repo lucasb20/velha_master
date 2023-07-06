@@ -27,25 +27,40 @@ void play_human_game(TicTacToe *partida){
 char check_winner(char*partida){
     char winner = 0;
     char qtd_winner = 0;
+    #ifdef DEBUG
+    printf("Check_winner.\n");
+    #endif
     for(int i = 0; i < 7; i+=3){
         if((partida[i] == partida[i+1]) && (partida[i+1] == partida[i+2]) && (partida[i] != 0)){
             winner = partida[i];
             qtd_winner++;
+            #ifdef DEBUG
+            printf("Linha %d ganha para %hhd. qtd_winner = %hhd\n",i,winner,qtd_winner);
+            #endif
         }
     }
     for(int i = 0; i < 3; i++){
         if((partida[i] == partida[i+3]) && (partida[i+3] == partida[i+6]) && (partida[i] != 0)){
             winner = partida[i];
             qtd_winner++;
+            #ifdef DEBUG
+            printf("Coluna %d ganha para %hhd. qtd_winner = %hhd\n",i,winner,qtd_winner);
+            #endif
         }
     }
     if((partida[0] == partida[4]) && (partida[4] == partida[8]) && (partida[0] != 0)){
             winner = partida[0];
             qtd_winner++;
+            #ifdef DEBUG
+            printf("Diagonal %d ganha para %hhd. qtd_winner = %hhd\n",0,winner,qtd_winner);
+            #endif
         }
     if((partida[2] == partida[4]) && (partida[4] == partida[6]) && (partida[2] != 0)){
             winner = partida[2];
             qtd_winner++;
+            #ifdef DEBUG
+            printf("Diagonal %d ganha para %hhd. qtd_winner = %hhd\n",1,winner,qtd_winner);
+            #endif
         }
 
     if(qtd_winner > 1)return -2;

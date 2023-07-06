@@ -11,7 +11,7 @@ typedef struct acoes_possiveis{
 void _max(char*,position*);
 void _min(char*,position*);
 void copy_and_move(char*,char*,char,char);
-void copy_match(char*,char*);
+void copy_match(char*,char**);
 int search_max(acts*);
 int search_min(acts*);
 char do_machine_move(char*,bool);

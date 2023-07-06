@@ -1,20 +1,15 @@
 #include "lib/minimax.hpp"
 #include "lib/TicTacToe.hpp"
 
-#define DEBUG
-
 void _max(char *pos, position *ref){
     acts copias;
     copias.qtd = 0;
-    #ifdef DEBUG
-    std::cout << "Check position\n";           
-    #endif
     if(check_winner(pos)!=0){
         ref->val = check_winner(pos);
-        copy_match(pos,ref->array); 
+        copy_match(pos,&(ref->array)); 
         return;
     }
-
+    
     for(int i = 0; i < 9; i++)if(pos[i]==0)copias.qtd++;
     if(copias.qtd > 0){
         copias.acoes = (position*) calloc(copias.qtd,sizeof(position));
@@ -34,7 +29,7 @@ void _max(char *pos, position *ref){
     }
 
     ref->val=copias.acoes[search_max(&copias)].val;
-    copy_match(copias.acoes[search_max(&copias)].array,ref->array);
+    copy_match(copias.acoes[search_max(&copias)].array,&(ref->array));
 
     return;
 }
@@ -44,7 +39,7 @@ void _min(char *pos,position *ref){
     copias.qtd = 0;
     if(check_winner(pos)!=0){
         ref->val = check_winner(pos);
-        copy_match(pos,ref->array); 
+        copy_match(pos,&(ref->array)); 
         return;
     }
 
@@ -67,20 +62,23 @@ void _min(char *pos,position *ref){
     }
 
     ref->val=copias.acoes[search_min(&copias)].val;
-    copy_match(copias.acoes[search_min(&copias)].array,ref->array);
+    copy_match(copias.acoes[search_min(&copias)].array,&(ref->array));
 
     return;
 }
 
-void copy_match(char*pos,char*ref){
-    ref = (char*) calloc(9,sizeof(char));
+void copy_match(char*pos,char**ref){
+    if(*ref==nullptr){
+        *ref = (char*) calloc(9,sizeof(char));
+    }
+    
     for(int i=0;i<9;i++){
-        ref[i] = pos[i];
+        (*ref)[i] = pos[i];
     }
 }
 
 void copy_and_move(char *pos,char*ref,char move,char turn){
-    ref = (char*) calloc(9,sizeof(char));
+    if(ref==nullptr)ref = (char*) calloc(9,sizeof(char));
     for(int i=0;i<9;i++){
         ref[i] = pos[i];
     }
@@ -112,48 +110,47 @@ int search_min(acts *copias){
 }
 
 char do_machine_move(char *pos,bool option){
-    position aux;
+    position *aux = (position*) calloc(1,sizeof(position));
 
     if(option){
-        _max(pos,&aux);
+        _max(pos,aux);
     }
     else{
-        _min(pos,&aux);
+        _min(pos,aux);
     }
 
-    #ifdef DEBUG
-    std::cout << "aux.array\n";
-    display(aux.array);
-    std::cout << "pos\n";
-    display(pos);
-    #endif
-
     for(int i=0; i<9; i++){
-        if(aux.array[i] != pos[i]){
+        if(aux->array[i] != pos[i]){
             return i;
         }
     }
+
     return -3;
 }
 
 void display(char*pos){
-            char casa=-1;
-            for(int i = 0; i < 9; i++){
-                switch(pos[i]){
-                    case 0:
-                    casa = '-';
-                    break;
-                    case 1:
-                    casa = 'O';
-                    break;
-                    case 2:
-                    casa = 'X';
-                    break;
-                    default:
-                    casa = pos[i];
-                    break;
-                }
-                printf("%c",casa);
-                if(i%3==2)std::cout << '\n';
-            }
+    char casa=-1;
+    for(int i = 0; i < 9; i++){
+        switch(pos[i]){
+            case 0:
+            casa = '-';
+            break;
+            case 1:
+            casa = 'X';
+            break;
+            case 2:
+            casa = 'O';
+            break;
+            default:
+            casa = pos[i];
+            break;
+        }
+        printf("%c",casa);
+        if(i%3==2)std::cout << '\n';
+    }
+
+    for(int i = 0; i < 9; i++){
+        printf("%d ",pos[i]);
+    }
+    printf("\n");   
 }
