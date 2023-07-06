@@ -2,25 +2,27 @@
 #include "lib/minimax.hpp"
 
 int main(int argc, char**argv){
-    /* if(argc!=2){
+    if(argc!=2){
         printf("Digite %s <choose>\n",*argv);
         printf("op:\n0 -> Player vs Player\n1 -> Player vs Engine\n2 -> Engine vs Player\n3 -> Engine vs Engine\n");
         exit(1);
     }
-    int choose = atoi(*(argv+1)); */
+    int choose = atoi(*(argv+1));
 
     srand(time(NULL));
 
     //char example[] = {1,2,0,0,1,0,0,0,2};
     //char example[] = {0,1,1,2,0,2,0,0,0};
     //char example[] = {2,1,1,0,1,0,0,2,2};
-    char example[] = {0,1,0,0,2,2,1,0,0};
-
+    //char example[] = {0,1,0,0,2,2,1,0,0};
+/* 
     display(example);
 
-    printf("A engine diz %hhd.\n",do_machine_move(example,true));
-/* 
+    printf("A engine diz %hhd.\n",do_machine_move(example,true)); */
+
     TicTacToe partida;
+
+    /* 
     char entry;
     while (true)
     {
@@ -35,9 +37,8 @@ int main(int argc, char**argv){
         }while(!partida.do_move(entry));
         partida.display_match();
         if(check_winner(partida.match)!=0)break;
-    }
- */
-/* 
+    } */
+
     switch(choose){
         case 0:
         play_human_game(&partida);
@@ -46,6 +47,6 @@ int main(int argc, char**argv){
         play_vs_engine(&partida,choose);
         break;
     }
- */
+
     return 0;
 }

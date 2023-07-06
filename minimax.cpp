@@ -1,7 +1,7 @@
 #include "lib/minimax.hpp"
 #include "lib/TicTacToe.hpp"
 
-#define DEBUG
+//define DEBUG
 
 /* 
 #ifdef DEBUG
@@ -13,12 +13,16 @@ char _max(char *pos, position *ref){
     acts copias;
     copias.qtd = 0;
 
-    srand(time(NULL));
-
+    char rand_num;
+    char *rand_array = (char*) calloc(9,sizeof(char));
     if(first_move(pos)){
-        return rand()%9;
+        rand_num = rand()%9;
+        ref->val = 0;
+        copy_and_move(pos,&(ref->array),rand_num,1);
+        return rand_num;
     }
-
+    free(rand_array);
+    
     if(ref->array==nullptr){
         #ifdef DEBUG
         printf("\nref->val alocado.\n");
@@ -32,7 +36,11 @@ char _max(char *pos, position *ref){
     #endif
 
     if(check_winner(pos)!=0){
-        ref->val += aval_pos(pos);
+        if(check_winner(pos)==-2){
+            printf("O que aconteceu? (max)\n");
+            exit(1);
+        }
+        ref->val = aval_pos(pos);
         #ifdef DEBUG
         printf("\nPosição calculada (max) -> %hhd.\n",ref->val);
         display(ref->array);
@@ -64,7 +72,7 @@ char _max(char *pos, position *ref){
     
     for(int i = 0; i < copias.qtd; i++){
         if(check_winner(copias.acoes[i].array)==1){
-            ref->val+=3;
+            ref->val=1;
             copy_match(copias.acoes[i].array,&(ref->array));
             return check_diff(pos,copias.acoes[i].array);
         }
@@ -80,6 +88,11 @@ char _max(char *pos, position *ref){
     undo_move(&(copias.acoes[max_val].array),max_diff);
     copy_match(copias.acoes[max_val].array,&(ref->array));
 
+    #ifdef DEBUG
+    printf("\nPosição resultado: [%hhd]\n",ref->val);
+    display(ref->array);
+    #endif
+
     return max_diff;
 }
 
@@ -88,7 +101,9 @@ char _min(char *pos,position *ref){
     copias.qtd = 0;
     
     if(ref->array==nullptr){
+        #ifdef DEBUG
         printf("\nref->val alocado.\n");
+        #endif
         ref->val=0;
     }
 
@@ -98,7 +113,11 @@ char _min(char *pos,position *ref){
     #endif
 
     if(check_winner(pos)!=0){
-        ref->val += aval_pos(pos);
+        if(check_winner(pos)==-2){
+            printf("O que aconteceu? (min)\n");
+            exit(1);
+        }
+        ref->val = aval_pos(pos);
         copy_match(pos,&(ref->array)); 
         #ifdef DEBUG
         printf("\nPosição calculada (min) -> %hhd.\n",ref->val);
@@ -122,15 +141,15 @@ char _min(char *pos,position *ref){
     int k=0;
     for(int i = 0; i < 9; i++){
         if(pos[i]==0){
-            copy_and_move(pos,&(copias.acoes[k].array),i,1);
-            copy_and_move(pos,&(results.acoes[k].array),i,1);
+            copy_and_move(pos,&(copias.acoes[k].array),i,2);
+            copy_and_move(pos,&(results.acoes[k].array),i,2);
             k++;
         }
     }
 
     for(int i = 0; i < copias.qtd; i++){
         if(check_winner(copias.acoes[i].array)==2){
-            ref->val-=3;
+            ref->val=-1;
             copy_match(copias.acoes[i].array,&(ref->array));
             return check_diff(pos,copias.acoes[i].array);
         }
@@ -198,18 +217,16 @@ int search_min(acts *copias){
 
 char do_machine_move(char *pos,bool option){
     position *aux = (position*) calloc(1,sizeof(position));
-
     char res = -3;
 
     if(option){
-        res = _max(pos,aux);
+        _max(pos,aux);
     }
     else{
-        res = _min(pos,aux);
+        _min(pos,aux);
     }
 
-    if(res == -3)res = check_diff(aux->array,pos);
-
+    res = check_diff(aux->array,pos);
     return res;
 }
 
@@ -242,7 +259,6 @@ void display(char*pos){
 
 void play_vs_engine(TicTacToe *partida, int option){
     char turn;
-    int i, j;
     char move;
     
     if(option == 1){
@@ -251,8 +267,7 @@ void play_vs_engine(TicTacToe *partida, int option){
             turn = partida->getTurn();
             printf("Vez do %c\n",turn);
             do{
-                scanf("%d,%d",&i,&j);
-                move = (i-1)*3+(j-1);
+                scanf("%hhd",&move);
             }while(!(partida->do_move(move)));
             if(check_winner(partida->match) != 0)break;
             move = do_machine_move(partida->match,false);
@@ -269,8 +284,7 @@ void play_vs_engine(TicTacToe *partida, int option){
             printf("Vez do %c\n",turn);
             partida->display_match();
             do{
-                scanf("%d,%d",&i,&j);
-                move = (i-1)*3+(j-1);
+                scanf("%hhd",&move);
             }while(!(partida->do_move(move)));
             if(check_winner(partida->match) != 0)break;
         }
