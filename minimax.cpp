@@ -13,8 +13,10 @@ char _max(char *pos, position *ref){
     acts copias;
     copias.qtd = 0;
 
+    if(ref->array==nullptr)ref->val=0;
+
     if(check_winner(pos)!=0){
-        ref->val = aval_pos(pos);
+        ref->val += aval_pos(pos);
         copy_match(pos,&(ref->array));
         return -1;
     }
@@ -30,7 +32,6 @@ char _max(char *pos, position *ref){
     int k=0;
     for(int i = 0; i < 9; i++){
         if(pos[i]==0){
-            copias.acoes[k].val = 0;
             copy_and_move(pos,&(copias.acoes[k].array),i,1);
             copy_and_move(pos,&(results.acoes[k].array),i,1);
             k++;
@@ -43,7 +44,6 @@ char _max(char *pos, position *ref){
 
     char max_val = search_max(&copias);
     char max_diff = check_diff(copias.acoes[max_val].array,results.acoes[max_val].array);
-
     ref->val=copias.acoes[max_val].val;
     undo_move(&(copias.acoes[max_val].array),max_diff);
     copy_match(copias.acoes[max_val].array,&(ref->array));
@@ -54,11 +54,11 @@ char _max(char *pos, position *ref){
 char _min(char *pos,position *ref){
     acts copias;
     copias.qtd = 0;
-
-    if(ref->array == nullptr)ref->val=0;
     
+    if(ref->array==nullptr)ref->val=0;
+
     if(check_winner(pos)!=0){
-        ref->val = aval_pos(pos);
+        ref->val += aval_pos(pos);
         copy_match(pos,&(ref->array)); 
         return -1;
     }
@@ -74,7 +74,6 @@ char _min(char *pos,position *ref){
     int k=0;
     for(int i = 0; i < 9; i++){
         if(pos[i]==0){
-            copias.acoes[k].val = 0;
             copy_and_move(pos,&(copias.acoes[k].array),i,1);
             copy_and_move(pos,&(results.acoes[k].array),i,1);
             k++;
@@ -148,6 +147,8 @@ char do_machine_move(char *pos,bool option){
     else{
         res = _min(pos,aux);
     }
+
+    if(res == -3)res = check_diff(aux->array,pos);
 
     return res;
 }
