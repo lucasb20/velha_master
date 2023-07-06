@@ -14,24 +14,22 @@ void _max(char *pos, position *ref){
     if(copias.qtd > 0){
         copias.acoes = (position*) calloc(copias.qtd,sizeof(position));
     }    
-
+    
     int k=0;
     for(int i = 0; i < 9; i++){
         if(pos[i]==0){
             copias.acoes[k].val = 0;
-            copy_and_move(pos,copias.acoes[k].array,i,1);
+            copy_and_move(pos,&(copias.acoes[k].array),i,1);
             k++;
         }
     }
-
+    
     for(int i = 0; i < copias.qtd ; i++){
         _min(copias.acoes[i].array,&(copias.acoes[i]));
     }
 
     ref->val=copias.acoes[search_max(&copias)].val;
     copy_match(copias.acoes[search_max(&copias)].array,&(ref->array));
-
-    return;
 }
 
 void _min(char *pos,position *ref){
@@ -52,7 +50,7 @@ void _min(char *pos,position *ref){
     for(int i = 0; i < 9; i++){
         if(pos[i]==0){
             copias.acoes[k].val = 0;
-            copy_and_move(pos,copias.acoes[k].array,i,2);
+            copy_and_move(pos,&(copias.acoes[k].array),i,2);
             k++;
         }
     }
@@ -63,8 +61,6 @@ void _min(char *pos,position *ref){
 
     ref->val=copias.acoes[search_min(&copias)].val;
     copy_match(copias.acoes[search_min(&copias)].array,&(ref->array));
-
-    return;
 }
 
 void copy_match(char*pos,char**ref){
@@ -77,12 +73,12 @@ void copy_match(char*pos,char**ref){
     }
 }
 
-void copy_and_move(char *pos,char*ref,char move,char turn){
-    if(ref==nullptr)ref = (char*) calloc(9,sizeof(char));
+void copy_and_move(char *pos,char**ref,char move,char turn){
+    if(*ref==nullptr)*ref = (char*) calloc(9,sizeof(char));
     for(int i=0;i<9;i++){
-        ref[i] = pos[i];
+        (*ref)[i] = pos[i];
     }
-    ref[move] = turn;
+    (*ref)[move] = turn;
 }
 
 int search_max(acts *copias){
