@@ -11,33 +11,20 @@ int main(int argc, char**argv){
 
     srand(time(NULL));
 
+    //Depuração
     //char example[] = {1,2,0,0,1,0,0,0,2};
     //char example[] = {0,1,1,2,0,2,0,0,0};
     //char example[] = {2,1,1,0,1,0,0,2,2};
     //char example[] = {0,1,0,0,2,2,1,0,0};
+    //char example[] = {1,2,2,1,0,0,1,0,0};
+    //char example[] = {2->6->0->1->7->4->5->8->3}
+    //char example[] = {1,1,2,1,2,0,0,2,1};
 /* 
     display(example);
 
     printf("A engine diz %hhd.\n",do_machine_move(example,true)); */
 
     TicTacToe partida;
-
-    /* 
-    char entry;
-    while (true)
-    {
-        entry = do_machine_move(partida.match,true);
-        printf("A engine diz %hhd.\n",entry);
-        if(entry != -3)partida.do_move(entry);
-        partida.display_match();
-        if(check_winner(partida.match)!=0)break;
-        do{
-            std::cout << "Your move.\n";
-            scanf("%hhd",&entry);
-        }while(!partida.do_move(entry));
-        partida.display_match();
-        if(check_winner(partida.match)!=0)break;
-    } */
 
     switch(choose){
         case 0:

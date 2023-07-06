@@ -263,15 +263,16 @@ void play_vs_engine(TicTacToe *partida, int option){
     
     if(option == 1){
         while(true){
-            partida->display_match();
             turn = partida->getTurn();
             printf("Vez do %c\n",turn);
             do{
                 scanf("%hhd",&move);
             }while(!(partida->do_move(move)));
+            partida->display_match();
             if(check_winner(partida->match) != 0)break;
             move = do_machine_move(partida->match,false);
             if(move != -3)partida->do_move(move);
+            partida->display_match();
             if(check_winner(partida->match) != 0)break;
         }
     }
@@ -279,24 +280,26 @@ void play_vs_engine(TicTacToe *partida, int option){
         while(true){
             move = do_machine_move(partida->match,true);
             if(move != -3)partida->do_move(move);
+            partida->display_match();
             if(check_winner(partida->match) != 0)break;
             turn = partida->getTurn();
             printf("Vez do %c\n",turn);
-            partida->display_match();
             do{
                 scanf("%hhd",&move);
             }while(!(partida->do_move(move)));
+            partida->display_match();
             if(check_winner(partida->match) != 0)break;
         }
     }
     else{
         while(true){
-            partida->display_match();
             move = do_machine_move(partida->match,true);
             if(move != -3)partida->do_move(move);
+            partida->display_match();
             if(check_winner(partida->match) != 0)break;
             move = do_machine_move(partida->match,false);
             if(move != -3)partida->do_move(move);
+            partida->display_match();
             if(check_winner(partida->match) != 0)break;
         }
     }
