@@ -1,3 +1,5 @@
+#include "TicTacToe.hpp"
+
 typedef struct estado_terminal{
     char val;
     char *array;
@@ -16,3 +18,4 @@ int search_max(acts*);
 int search_min(acts*);
 char do_machine_move(char*,bool);
 void display(char*);
+void play_vs_engine(TicTacToe*,int);

@@ -31,6 +31,3 @@
 *.out
 *.app
 hello
-
-# Debug
-lixo_em_python

@@ -1,23 +1,23 @@
 #include "lib/TicTacToe.hpp"
 #include "lib/minimax.hpp"
 
-int main(){
+int main(int argc, char**argv){
+    if(argc!=2){
+        printf("Digite %s <choose>\n",*argv);
+        printf("op:\n0 -> Player vs Player\n1 -> Player vs Engine\n2 -> Engine vs Player\n3 -> Engine vs Engine\n");
+        exit(1);
+    }
+    int choose = atoi(*(argv+1));
+
     TicTacToe partida;
 
-    char match[] = {1,2,0,1,1,0,2,0,2};
-    partida.define_match(match);
-    partida.display_match();
-
-    char eng = do_machine_move(partida.match,true);
-
-    printf("Palavras da engine:\n");
-
-    switch(eng){
-        case -3:
-        std::cout << "Sem movimentos possíveis.\n";
+    switch(choose){
+        case 0:
+        play_human_game(&partida);
         break;
         default:
-        printf("O melhor movimento é %hhd\n",eng);
+        play_vs_engine(&partida,choose);
+        break;
     }
 
     return 0;

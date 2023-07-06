@@ -1,5 +1,7 @@
 #include <iostream>
 
+#ifndef TICTACTOE_H
+#define TICTACTOE_H
 class TicTacToe{
     public:
         unsigned char lance;
@@ -59,6 +61,7 @@ class TicTacToe{
             }
         }
 };
+#endif
 
 void play_human_game(TicTacToe*);
 //Impossível    -> -2

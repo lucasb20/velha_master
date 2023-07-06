@@ -150,3 +150,59 @@ void display(char*pos){
     }
     printf("\n");   
 }
+
+void play_vs_engine(TicTacToe *partida, int option){
+    char turn;
+    int i, j;
+    char move;
+    
+    if(option == 1){
+        while(true){
+            partida->display_match();
+            turn = partida->getTurn();
+            printf("Vez do %c\n",turn);
+            do{
+                scanf("%d,%d",&i,&j);
+                move = (i-1)*3+(j-1);
+            }while(!(partida->do_move(move)));
+            if(check_winner(partida->match) != 0)break;
+            move = do_machine_move(partida->match,false);
+            if(move != -3)partida->do_move(move);
+            if(check_winner(partida->match) != 0)break;
+        }
+    }
+    else if(option == 2){
+        while(true){
+            move = do_machine_move(partida->match,true);
+            if(move != -3)partida->do_move(move);
+            if(check_winner(partida->match) != 0)break;
+            turn = partida->getTurn();
+            printf("Vez do %c\n",turn);
+            partida->display_match();
+            do{
+                scanf("%d,%d",&i,&j);
+                move = (i-1)*3+(j-1);
+            }while(!(partida->do_move(move)));
+            if(check_winner(partida->match) != 0)break;
+        }
+    }
+    else{
+        while(true){
+            partida->display_match();
+            move = do_machine_move(partida->match,true);
+            if(move != -3)partida->do_move(move);
+            if(check_winner(partida->match) != 0)break;
+            move = do_machine_move(partida->match,false);
+            if(move != -3)partida->do_move(move);
+            if(check_winner(partida->match) != 0)break;
+        }
+    }
+
+    switch(check_winner(partida->match)){
+        case -1:
+        std::cout << "Draw.\n";
+        break;
+        default:
+        printf("O vencedor foi %c.\n",(check_winner(partida->match)%2)?'X':'O');
+    }
+}
