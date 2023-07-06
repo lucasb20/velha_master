@@ -1,8 +1,8 @@
 # Velha Master
 
-Um projeto de Jogo da Velha, é possível jogar entre humanos.
+Um projeto de Jogo da Velha, é possível tanto jogos com humanos como com maquinas.
 
-Também há um algoritmo que utiliza um algoritmo de busca competitiva, o famoso minimax.
+Há um algoritmo que utiliza busca competitiva, o famoso minimax.
 
 Dá para jogar tanto de X como de O contra o algoritmo.
 
