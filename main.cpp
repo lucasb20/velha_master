@@ -9,8 +9,29 @@ int main(int argc, char**argv){
     }
     int choose = atoi(*(argv+1));
 
-    TicTacToe partida;
+/*     char example[] = {1,2,0,0,1,0,0,0,2};
+    
+    display(example);
 
+    printf("A engine diz %hhd.\n",do_machine_move(example,true));
+ */
+    /* while (true)
+    {
+        partida.display_match();
+        entry = do_machine_move(partida.match,true);
+        printf("A engine diz %hhd.\n",entry);
+        if(entry != -3)partida.do_move(entry);
+        if(check_winner(partida.match)!=0)break;
+        partida.display_match();
+        do{
+            std::cout << "Your move.\n";
+            scanf("%hhd",&entry);
+        }while(!partida.do_move(entry));
+        if(check_winner(partida.match)!=0)break;
+    } */
+    
+
+/* 
     switch(choose){
         case 0:
         play_human_game(&partida);
@@ -19,6 +40,6 @@ int main(int argc, char**argv){
         play_vs_engine(&partida,choose);
         break;
     }
-
+ */
     return 0;
 }

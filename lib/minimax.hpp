@@ -10,8 +10,8 @@ typedef struct acoes_possiveis{
     position *acoes;
 }acts;
 
-void _max(char*,position*);
-void _min(char*,position*);
+char _max(char*,position*);
+char _min(char*,position*);
 void copy_and_move(char*,char**,char,char);
 void copy_match(char*,char**);
 int search_max(acts*);
@@ -19,3 +19,6 @@ int search_min(acts*);
 char do_machine_move(char*,bool);
 void display(char*);
 void play_vs_engine(TicTacToe*,int);
+char aval_pos(char*);
+char check_diff(char*,char*);
+void undo_move(char**,char);

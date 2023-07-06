@@ -1,18 +1,30 @@
 #include "lib/minimax.hpp"
 #include "lib/TicTacToe.hpp"
 
-void _max(char *pos, position *ref){
+#define DEBUG
+
+/* 
+#ifdef DEBUG
+printf("teste.\n");
+#endif
+ */
+
+char _max(char *pos, position *ref){
     acts copias;
     copias.qtd = 0;
+
     if(check_winner(pos)!=0){
-        ref->val = check_winner(pos);
-        copy_match(pos,&(ref->array)); 
-        return;
+        ref->val = aval_pos(pos);
+        copy_match(pos,&(ref->array));
+        return -1;
     }
     
+    acts results;
+
     for(int i = 0; i < 9; i++)if(pos[i]==0)copias.qtd++;
     if(copias.qtd > 0){
         copias.acoes = (position*) calloc(copias.qtd,sizeof(position));
+        results.acoes = (position*) calloc(copias.qtd,sizeof(position));
     }    
     
     int k=0;
@@ -20,6 +32,7 @@ void _max(char *pos, position *ref){
         if(pos[i]==0){
             copias.acoes[k].val = 0;
             copy_and_move(pos,&(copias.acoes[k].array),i,1);
+            copy_and_move(pos,&(results.acoes[k].array),i,1);
             k++;
         }
     }
@@ -28,29 +41,42 @@ void _max(char *pos, position *ref){
         _min(copias.acoes[i].array,&(copias.acoes[i]));
     }
 
-    ref->val=copias.acoes[search_max(&copias)].val;
-    copy_match(copias.acoes[search_max(&copias)].array,&(ref->array));
+    char max_val = search_max(&copias);
+    char max_diff = check_diff(copias.acoes[max_val].array,results.acoes[max_val].array);
+
+    ref->val=copias.acoes[max_val].val;
+    undo_move(&(copias.acoes[max_val].array),max_diff);
+    copy_match(copias.acoes[max_val].array,&(ref->array));
+
+    return max_diff;
 }
 
-void _min(char *pos,position *ref){
+char _min(char *pos,position *ref){
     acts copias;
     copias.qtd = 0;
+
+    if(ref->array == nullptr)ref->val=0;
+    
     if(check_winner(pos)!=0){
-        ref->val = check_winner(pos);
+        ref->val = aval_pos(pos);
         copy_match(pos,&(ref->array)); 
-        return;
+        return -1;
     }
+
+    acts results;
 
     for(int i = 0; i < 9; i++)if(pos[i]==0)copias.qtd++;
     if(copias.qtd > 0){
         copias.acoes = (position*) calloc(copias.qtd,sizeof(position));
-    }    
+        results.acoes = (position*) calloc(copias.qtd,sizeof(position));
+    }
 
     int k=0;
     for(int i = 0; i < 9; i++){
         if(pos[i]==0){
             copias.acoes[k].val = 0;
-            copy_and_move(pos,&(copias.acoes[k].array),i,2);
+            copy_and_move(pos,&(copias.acoes[k].array),i,1);
+            copy_and_move(pos,&(results.acoes[k].array),i,1);
             k++;
         }
     }
@@ -59,8 +85,14 @@ void _min(char *pos,position *ref){
         _max(copias.acoes[i].array,&(copias.acoes[i]));
     }
 
-    ref->val=copias.acoes[search_min(&copias)].val;
-    copy_match(copias.acoes[search_min(&copias)].array,&(ref->array));
+    char min_val = search_min(&copias);
+    char min_diff = check_diff(copias.acoes[min_val].array,results.acoes[min_val].array);
+
+    ref->val=copias.acoes[min_val].val;
+    undo_move(&(copias.acoes[min_val].array),min_diff);
+    copy_match(copias.acoes[min_val].array,&(ref->array));
+
+    return min_diff;
 }
 
 void copy_match(char*pos,char**ref){
@@ -108,20 +140,16 @@ int search_min(acts *copias){
 char do_machine_move(char *pos,bool option){
     position *aux = (position*) calloc(1,sizeof(position));
 
+    char res = -3;
+
     if(option){
-        _max(pos,aux);
+        res = _max(pos,aux);
     }
     else{
-        _min(pos,aux);
+        res = _min(pos,aux);
     }
 
-    for(int i=0; i<9; i++){
-        if(aux->array[i] != pos[i]){
-            return i;
-        }
-    }
-
-    return -3;
+    return res;
 }
 
 void display(char*pos){
@@ -145,10 +173,10 @@ void display(char*pos){
         if(i%3==2)std::cout << '\n';
     }
 
-    for(int i = 0; i < 9; i++){
+/*     for(int i = 0; i < 9; i++){
         printf("%d ",pos[i]);
     }
-    printf("\n");   
+    printf("\n"); */
 }
 
 void play_vs_engine(TicTacToe *partida, int option){
@@ -205,4 +233,33 @@ void play_vs_engine(TicTacToe *partida, int option){
         default:
         printf("O vencedor foi %c.\n",(check_winner(partida->match)%2)?'X':'O');
     }
+}
+
+char aval_pos(char*pos){
+    char res;
+    res = check_winner(pos);
+    switch(res){
+        case 1:
+        res = 1;
+        break;
+        case 2:
+        res = -1;
+        break;
+        default:
+        res = 0;
+        break;
+    }
+    return res;
+}
+
+char check_diff(char*pos1,char*pos2){
+    int res=-3;
+    for(int i = 0; i < 9; i++){
+        if(pos1[i]!=pos2[i])res=i;
+    }
+    return res;
+}
+
+void undo_move(char **pos, char move){
+    (*pos)[move] = 0;
 }
