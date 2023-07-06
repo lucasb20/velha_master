@@ -1,4 +1,6 @@
 #include "TicTacToe.hpp"
+#include <ctime>
+#include <cstdlib>
 
 typedef struct estado_terminal{
     char val;
@@ -22,3 +24,4 @@ void play_vs_engine(TicTacToe*,int);
 char aval_pos(char*);
 char check_diff(char*,char*);
 void undo_move(char**,char);
+bool first_move(char*);

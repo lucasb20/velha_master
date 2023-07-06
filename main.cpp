@@ -9,14 +9,17 @@ int main(int argc, char**argv){
     }
     int choose = atoi(*(argv+1)); */
 
+    srand(time(NULL));
+
     //char example[] = {1,2,0,0,1,0,0,0,2};
     //char example[] = {0,1,1,2,0,2,0,0,0};
-    //char example[] = {2,1,1,0,1,0,0,3,3}; ??????????
+    //char example[] = {2,1,1,0,1,0,0,2,2};
+    char example[] = {0,1,0,0,2,2,1,0,0};
 
-    /* display(example);
+    display(example);
 
     printf("A engine diz %hhd.\n",do_machine_move(example,true));
- */
+/* 
     TicTacToe partida;
     char entry;
     while (true)
@@ -33,7 +36,7 @@ int main(int argc, char**argv){
         partida.display_match();
         if(check_winner(partida.match)!=0)break;
     }
-
+ */
 /* 
     switch(choose){
         case 0:

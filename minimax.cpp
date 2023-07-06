@@ -13,14 +13,38 @@ char _max(char *pos, position *ref){
     acts copias;
     copias.qtd = 0;
 
-    if(ref->array==nullptr)ref->val=0;
+    srand(time(NULL));
+
+    if(first_move(pos)){
+        return rand()%9;
+    }
+
+    if(ref->array==nullptr){
+        #ifdef DEBUG
+        printf("\nref->val alocado.\n");
+        #endif
+        ref->val=0;
+    }
+
+    #ifdef DEBUG
+    printf("\nPosição recebida (max) -> %hhd.\n",check_winner(pos));
+    display(pos);
+    #endif
 
     if(check_winner(pos)!=0){
         ref->val += aval_pos(pos);
+        #ifdef DEBUG
+        printf("\nPosição calculada (max) -> %hhd.\n",ref->val);
+        display(ref->array);
+        #endif  
         copy_match(pos,&(ref->array));
         return -1;
     }
     
+    #ifdef DEBUG
+    printf("\nCalculando jogada seguinte (max).\n");
+    #endif
+
     acts results;
 
     for(int i = 0; i < 9; i++)if(pos[i]==0)copias.qtd++;
@@ -38,6 +62,14 @@ char _max(char *pos, position *ref){
         }
     }
     
+    for(int i = 0; i < copias.qtd; i++){
+        if(check_winner(copias.acoes[i].array)==1){
+            ref->val+=3;
+            copy_match(copias.acoes[i].array,&(ref->array));
+            return check_diff(pos,copias.acoes[i].array);
+        }
+    }
+
     for(int i = 0; i < copias.qtd ; i++){
         _min(copias.acoes[i].array,&(copias.acoes[i]));
     }
@@ -55,13 +87,29 @@ char _min(char *pos,position *ref){
     acts copias;
     copias.qtd = 0;
     
-    if(ref->array==nullptr)ref->val=0;
+    if(ref->array==nullptr){
+        printf("\nref->val alocado.\n");
+        ref->val=0;
+    }
+
+    #ifdef DEBUG
+    printf("\nPosição recebida (min) -> %hhd.\n",check_winner(pos));
+    display(pos);
+    #endif
 
     if(check_winner(pos)!=0){
         ref->val += aval_pos(pos);
         copy_match(pos,&(ref->array)); 
+        #ifdef DEBUG
+        printf("\nPosição calculada (min) -> %hhd.\n",ref->val);
+        display(ref->array);
+        #endif
         return -1;
     }
+
+    #ifdef DEBUG
+    printf("\nCalculando jogada seguinte (min).\n");
+    #endif
 
     acts results;
 
@@ -77,6 +125,14 @@ char _min(char *pos,position *ref){
             copy_and_move(pos,&(copias.acoes[k].array),i,1);
             copy_and_move(pos,&(results.acoes[k].array),i,1);
             k++;
+        }
+    }
+
+    for(int i = 0; i < copias.qtd; i++){
+        if(check_winner(copias.acoes[i].array)==2){
+            ref->val-=3;
+            copy_match(copias.acoes[i].array,&(ref->array));
+            return check_diff(pos,copias.acoes[i].array);
         }
     }
 
@@ -110,6 +166,10 @@ void copy_and_move(char *pos,char**ref,char move,char turn){
         (*ref)[i] = pos[i];
     }
     (*ref)[move] = turn;
+    #ifdef DEBUG
+    printf("Movimento a considerar [%hhd].\n",move);
+    display(*ref);
+    #endif
 }
 
 int search_max(acts *copias){
@@ -167,7 +227,7 @@ void display(char*pos){
             casa = 'O';
             break;
             default:
-            casa = pos[i];
+            casa = '?';
             break;
         }
         printf("%c",casa);
@@ -263,4 +323,12 @@ char check_diff(char*pos1,char*pos2){
 
 void undo_move(char **pos, char move){
     (*pos)[move] = 0;
+}
+
+bool first_move(char*pos){
+    bool teste=true;
+    for(int i = 0; i < 9; i++){
+        if(pos[i]!=0)teste=false;
+    }
+    return teste;
 }
