@@ -56,10 +56,9 @@ char _max(char *pos, position *ref){
     acts results;
 
     for(int i = 0; i < 9; i++)if(pos[i]==0)copias.qtd++;
-    if(copias.qtd > 0){
-        copias.acoes = (position*) calloc(copias.qtd,sizeof(position));
-        results.acoes = (position*) calloc(copias.qtd,sizeof(position));
-    }    
+
+    copias.acoes = (position*) calloc(copias.qtd,sizeof(position));
+    results.acoes = (position*) calloc(copias.qtd,sizeof(position));    
     
     int k=0;
     for(int i = 0; i < 9; i++){
@@ -133,10 +132,9 @@ char _min(char *pos,position *ref){
     acts results;
 
     for(int i = 0; i < 9; i++)if(pos[i]==0)copias.qtd++;
-    if(copias.qtd > 0){
-        copias.acoes = (position*) calloc(copias.qtd,sizeof(position));
-        results.acoes = (position*) calloc(copias.qtd,sizeof(position));
-    }
+
+    copias.acoes = (position*) calloc(copias.qtd,sizeof(position));
+    results.acoes = (position*) calloc(copias.qtd,sizeof(position));
 
     int k=0;
     for(int i = 0; i < 9; i++){
@@ -192,10 +190,14 @@ void copy_and_move(char *pos,char**ref,char move,char turn){
 }
 
 int search_max(acts *copias){
-    int maior = 0;
+    int maior = copias->acoes[0].val;
     int pos = 0;
-    for(int i=0; i<copias->qtd;i++){
+    for(int i=1; i<copias->qtd;i++){
         if(copias->acoes[i].val>maior){
+            #ifdef DEBUG
+            printf("\nMelhor posição: (max)\n");
+            display(copias->acoes[i].array);
+            #endif
             maior = copias->acoes[i].val;
             pos = i;
         }
@@ -204,10 +206,14 @@ int search_max(acts *copias){
 }
 
 int search_min(acts *copias){
-    int menor = 0;
+    int menor = copias->acoes[0].val;
     int pos = 0;
-    for(int i=0; i<copias->qtd;i++){
+    for(int i=1; i<copias->qtd;i++){
         if(copias->acoes[i].val<menor){
+            #ifdef DEBUG
+            printf("\nMelhor posição: (min)\n");
+            display(copias->acoes[i].array);
+            #endif
             menor = copias->acoes[i].val;
             pos = i;
         }
@@ -215,11 +221,13 @@ int search_min(acts *copias){
     return pos;
 }
 
-char do_machine_move(char *pos,bool option){
+char do_machine_move(char *pos){
     position *aux = (position*) calloc(1,sizeof(position));
     char res = -3;
 
-    if(option){
+    char option = calc_turn(pos)-1;
+
+    if(!option){
         _max(pos,aux);
     }
     else{
@@ -270,7 +278,7 @@ void play_vs_engine(TicTacToe *partida, int option){
             }while(!(partida->do_move(move)));
             partida->display_match();
             if(check_winner(partida->match) != 0)break;
-            move = do_machine_move(partida->match,false);
+            move = do_machine_move(partida->match);
             if(move != -3)partida->do_move(move);
             partida->display_match();
             if(check_winner(partida->match) != 0)break;
@@ -278,7 +286,7 @@ void play_vs_engine(TicTacToe *partida, int option){
     }
     else if(option == 2){
         while(true){
-            move = do_machine_move(partida->match,true);
+            move = do_machine_move(partida->match);
             if(move != -3)partida->do_move(move);
             partida->display_match();
             if(check_winner(partida->match) != 0)break;
@@ -293,12 +301,14 @@ void play_vs_engine(TicTacToe *partida, int option){
     }
     else{
         while(true){
-            move = do_machine_move(partida->match,true);
+            move = do_machine_move(partida->match);
             if(move != -3)partida->do_move(move);
+            printf("Vez do X:\n");
             partida->display_match();
             if(check_winner(partida->match) != 0)break;
-            move = do_machine_move(partida->match,false);
+            move = do_machine_move(partida->match);
             if(move != -3)partida->do_move(move);
+            printf("Vez do O:\n");
             partida->display_match();
             if(check_winner(partida->match) != 0)break;
         }
@@ -339,7 +349,7 @@ char check_diff(char*pos1,char*pos2){
 }
 
 void undo_move(char **pos, char move){
-    (*pos)[move] = 0;
+    if(move >= 0 && move < 9)(*pos)[move] = 0;
 }
 
 bool first_move(char*pos){
@@ -348,4 +358,14 @@ bool first_move(char*pos){
         if(pos[i]!=0)teste=false;
     }
     return teste;
+}
+
+char calc_turn(char*pos){
+    char num_1=0;
+    char num_2=0;
+    for(int i=0; i<9; i++){
+        if(pos[i]==1)num_1++;
+        if(pos[i]==2)num_2++;
+    }
+    return ((num_1+num_2)%2)?2:1;
 }

@@ -6,8 +6,6 @@ Há um algoritmo que utiliza busca competitiva, o famoso minimax.
 
 Dá para jogar tanto de X como de O contra o algoritmo.
 
-Fiz bastante progresso, mas infelizmente ele está um pouco impreciso, em posições bem específicas ele está preferindo dar um duplo do que evitar o 'mate' no lance seguinte. Em algumas partidas ele também não pune da melhor forma um lance errado.
+Depois de 3 dias seguidos de pura depuração tentando ajustar a precisão do algoritmo, eu consegui. Agora finalmente alcançou uma precisão muito boa.
 
-Eu penso em melhorar, mas meu código está tão confuso que acredito que eu vá ter que refazer. Em Python isso parece bem mais fácil, eu tentei readaptar para o C++ mas provavelmente havia uma forma mais apropriada de fazer isso.
-
-Foram dois dias seguidos de depuração, resolvi vários problemas no algoritmo, mas infelizmente ainda há os problemas que já citei.
+Só não vou dizer que é uma precisão perfeita porque ele não difere posições minimamente melhores. Com 'posições melhores' quero dizer casos em que há mais chance do adversário errar. Se tiver como escolher entre duas posições empatadas, ele não vai se importar de saber que em uma o adversário tem mais opções de lances ruins e em outra só leva direto ao empate, ele escolhe qualquer uma delas.
