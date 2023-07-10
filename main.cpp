@@ -1,5 +1,6 @@
 #include "lib/TicTacToe.hpp"
 #include "lib/minimax.hpp"
+#include "lib/nnue.hpp"
 
 int main(int argc, char**argv){
     if(argc!=2){
