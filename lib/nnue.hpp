@@ -3,14 +3,16 @@ typedef double w_type;
 #define qtd_in 9
 #define qtd_out 9
 
+#include <vector>
+
 double sigmoid (double);
 char nnue_algorithm(char*);
-void fill_random(w_type***,size_t,size_t);
-void fill_random(w_type**,size_t);
-void impress_w(w_type**,size_t,size_t);
-void impress_w(w_type*,size_t);
+void fill_random(std::vector<std::vector<w_type>>&);
+void fill_random(std::vector<w_type> &);
+void impress_w(std::vector<std::vector<w_type>>);
+void impress_w(std::vector<w_type>);
 
-int mul_matrix(w_type***,char**,w_type**,size_t,size_t,size_t,size_t);
-int mul_matrix(w_type***,w_type**,w_type**,size_t,size_t,size_t,size_t);
-int sum_matrix(w_type**,w_type**,w_type**,size_t);
-void apply_sigmoid(w_type**,size_t);
+int mul_matrix(std::vector<std::vector<w_type>>&,char**,std::vector<w_type>&);
+int mul_matrix(std::vector<std::vector<w_type>>&,std::vector<w_type>&,std::vector<w_type>&);
+int sum_matrix(std::vector<w_type>&,std::vector<w_type>&,std::vector<w_type>&);
+void apply_sigmoid(std::vector<w_type>&);
