@@ -16,3 +16,8 @@ int mul_matrix(std::vector<std::vector<w_type>>&,char**,std::vector<w_type>&);
 int mul_matrix(std::vector<std::vector<w_type>>&,std::vector<w_type>&,std::vector<w_type>&);
 int sum_matrix(std::vector<w_type>&,std::vector<w_type>&,std::vector<w_type>&);
 void apply_sigmoid(std::vector<w_type>&);
+
+w_type _max(double,w_type);
+void apply_relu(std::vector<w_type>&);
+void save_weight(std::string,std::vector<std::vector<w_type>>);
+void load_weight(std::string,std::vector<std::vector<w_type>>&);

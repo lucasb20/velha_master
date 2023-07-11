@@ -28,6 +28,74 @@ char nnue_algorithm(char *pos){
     return 0;
 }
 
+void save_weight(std::string filename,std::vector<std::vector<w_type>> vector_){
+    FILE *file_ptr=nullptr;
+
+    if(!(file_ptr)){
+        std::cout << "ERRO." << std::endl;
+        exit(1);
+    }
+
+    const char *filename_ = filename.c_str();
+
+    file_ptr = fopen(filename_,"wb");
+
+    w_type aux;
+
+    for(int i = 0; i < vector_.size(); i++){
+        for(int j = 0; j < vector_[0].size(); j++){
+            aux = vector_[i][j];
+            fwrite(&aux,sizeof(w_type),1,file_ptr);
+        }
+    }
+
+    fclose(file_ptr);
+}
+
+void load_weight(std::string filename,std::vector<std::vector<w_type>> &ref){
+    FILE *file_ptr=nullptr;
+
+    if(!(file_ptr)){
+        std::cout << "ERRO." << std::endl;
+        exit(1);
+    }
+
+    const char *filename_ = filename.c_str();
+
+    file_ptr = fopen(filename_,"rb");
+
+    std::vector<w_type> aux_v;
+    w_type aux_num;
+
+    for(int i = 0; i < ref.size(); i++){
+        for(int j = 0; j < ref[0].size(); j++){
+            fread(&aux_num,sizeof(w_type),1,file_ptr);
+            aux_v.push_back(aux_num);
+        }
+        ref.push_back(aux_v);
+        aux_v.clear();
+    }
+
+    fclose(file_ptr);
+}
+
+w_type _max(double num1,w_type num2){
+    w_type res = 0;
+    if(num1 > num2){
+        res = num1;
+    }
+    else{
+        res = num2;
+    }
+    return res;
+}
+
+void apply_relu(std::vector<w_type> &mat){
+    for(int i = 0; i < mat.size(); i++){
+        mat[i] = _max(0,mat[i]);
+    }
+}
+
 void apply_sigmoid(std::vector<w_type> &mat){
     for(int i = 0; i < mat.size(); i++){
         mat[i] = sigmoid(mat[i]);
