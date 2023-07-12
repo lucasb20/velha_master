@@ -27,7 +27,7 @@ dep.obj: dep.cpp
 clean:
 	rm -f *.obj $(EXE)
 
-debug_mode: dep.obj $(OBJS)
+debug: dep.obj $(OBJS)
 	$(CC) -o $(EXE) $(OBJS_debug)
 
 remake: clean all

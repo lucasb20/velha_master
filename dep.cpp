@@ -21,7 +21,19 @@ int main(int argc, char**argv){
 
     printf("A engine diz %hhd.\n",do_machine_move(example));
 
-    //nnue_algorithm(example);
+    vector<vector<w_type>> w_1(qtd_neu,vector<w_type>(qtd_in));
+    vector<vector<w_type>> w_2(qtd_out,vector<w_type>(qtd_neu));
+    vector<w_type> b_1(qtd_neu);
+    vector<w_type> b_2(qtd_out);
+
+    vector<vector<w_type>> tes(qtd_neu,vector<w_type>(qtd_in));
+
+    fill_random(w_1);
+    fill_random(w_2);
+    fill_random(b_1);
+    fill_random(b_2);
+
+    nnue_algorithm(example,w_1,w_2,b_1,b_2);
 
     return 0;
 }

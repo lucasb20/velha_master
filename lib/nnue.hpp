@@ -23,3 +23,5 @@ w_type _max(double,w_type);
 void apply_relu(std::vector<w_type>&);
 void save_weight(std::string,std::vector<std::vector<w_type>>);
 void load_weight(std::string,std::vector<std::vector<w_type>>&);
+void load_weight(std::string,std::vector<w_type>&);
+void save_weight(std::string,std::vector<w_type>);

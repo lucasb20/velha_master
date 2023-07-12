@@ -7,8 +7,6 @@
 #define DEBUG
 
 char nnue_algorithm(char *pos, std::vector<std::vector<w_type>> &w_1, std::vector<std::vector<w_type>> &w_2, std::vector<w_type> &b_1, std::vector<w_type> &b_2){
-    fill_random(w_1);
-    fill_random(b_1);
     std::vector<w_type> neu(qtd_neu);
     mul_matrix(w_1,&pos,neu);
     sum_matrix(b_1,neu,neu);
@@ -24,51 +22,100 @@ char nnue_algorithm(char *pos, std::vector<std::vector<w_type>> &w_1, std::vecto
 void save_weight(std::string filename,std::vector<std::vector<w_type>> vector_){
     FILE *file_ptr=nullptr;
 
+    const char *filename_ = filename.c_str();
+
+    file_ptr = fopen(filename_,"w+b");
+
     if(!(file_ptr)){
         std::cout << "ERRO." << std::endl;
         exit(1);
     }
 
-    const char *filename_ = filename.c_str();
-
-    file_ptr = fopen(filename_,"wb");
-
-    w_type aux;
+    w_type *aux = (w_type*) calloc(1,sizeof(w_type));
 
     for(int i = 0; i < vector_.size(); i++){
         for(int j = 0; j < vector_[0].size(); j++){
-            aux = vector_[i][j];
-            fwrite(&aux,sizeof(w_type),1,file_ptr);
+            *aux = vector_[i][j];
+            fwrite(aux,sizeof(w_type),1,file_ptr);
         }
     }
 
+    free(aux);
+    fclose(file_ptr);
+}
+
+void save_weight(std::string filename,std::vector<w_type> vector_){
+    FILE *file_ptr=nullptr;
+
+    const char *filename_ = filename.c_str();
+
+    file_ptr = fopen(filename_,"w+b");
+
+    if(!(file_ptr)){
+        std::cout << "ERRO." << std::endl;
+        exit(1);
+    }
+
+    w_type *aux = (w_type*) calloc(1,sizeof(w_type));
+
+    for(int i = 0; i < vector_.size(); i++){
+        *aux = vector_[i];
+        fwrite(aux,sizeof(w_type),1,file_ptr);
+    }
+
+    free(aux);
     fclose(file_ptr);
 }
 
 void load_weight(std::string filename,std::vector<std::vector<w_type>> &ref){
     FILE *file_ptr=nullptr;
 
+    const char *filename_ = filename.c_str();
+
+    file_ptr = fopen(filename_,"r+b");
+
     if(!(file_ptr)){
         std::cout << "ERRO." << std::endl;
         exit(1);
-    }
-
-    const char *filename_ = filename.c_str();
-
-    file_ptr = fopen(filename_,"rb");
+    }    
 
     std::vector<w_type> aux_v;
-    w_type aux_num;
+    w_type *aux_num = (w_type*) calloc(1,sizeof(w_type));
 
     for(int i = 0; i < ref.size(); i++){
         for(int j = 0; j < ref[0].size(); j++){
-            fread(&aux_num,sizeof(w_type),1,file_ptr);
-            aux_v.push_back(aux_num);
+            fread(aux_num,sizeof(w_type),1,file_ptr);
+            aux_v.push_back(*aux_num);
+            //std::cout << *aux_num << std::endl;
         }
-        ref.push_back(aux_v);
+        ref[i] = (aux_v);
         aux_v.clear();
     }
 
+    free(aux_num);
+    fclose(file_ptr);
+}
+
+void load_weight(std::string filename,std::vector<w_type> &ref){
+    FILE *file_ptr=nullptr;
+
+    const char *filename_ = filename.c_str();
+
+    file_ptr = fopen(filename_,"r+b");
+
+    if(!(file_ptr)){
+        std::cout << "ERRO." << std::endl;
+        exit(1);
+    }    
+
+    w_type *aux_num = (w_type*) calloc(1,sizeof(w_type));
+
+    for(int i = 0; i < ref.size(); i++){
+        fread(aux_num,sizeof(w_type),1,file_ptr);
+        ref[i] = *aux_num;
+    }
+
+    free(aux_num);
     fclose(file_ptr);
 }
 
@@ -102,21 +149,21 @@ double sigmoid (double x) {
 void fill_random(std::vector<std::vector<w_type>> &matrix){
     for(int i = 0; i < matrix.size(); i++){
         for(int j = 0; j < matrix[0].size(); j++){
-            matrix[i][j] = (double)((rand()%100)-100);
+            matrix[i][j] = ((w_type)((rand()%200)-100))/100;
         }
     }
 }
 
 void fill_random(std::vector<w_type> &array){
     for(int i = 0; i < array.size(); i++){
-        array[i] = (double)((rand()%100)-100);
+        array[i] = ((w_type)((rand()%200)-100))/100;
     }
 }
 
 void impress_w(std::vector<std::vector<w_type>>mat){
     for(int i = 0; i < mat.size(); i++){
         for(int j = 0; j < mat[0].size(); j++){
-            printf("%f\t",mat[i][j]);
+            printf("%2.2f\t",mat[i][j]);
         }
         printf("\n");
     }
@@ -124,7 +171,7 @@ void impress_w(std::vector<std::vector<w_type>>mat){
 
 void impress_w(std::vector<w_type>mat){
     for(int i = 0; i < mat.size(); i++){
-        printf("%3f ",mat[i]);
+        printf("%2.2f ",mat[i]);
     }
     printf("\n");
 }
