@@ -1,21 +1,33 @@
-all: hello
+CC = g++
+CFLAGS = -c
+OBJS = main.obj TicTacToe.obj minimax.obj nnue.obj
+OBJS_debug = dep.obj TicTacToe.obj minimax.obj nnue.obj
+EXE = hello
 
-hello: main.obj TicTacToe.obj minimax.obj nnue.obj
-	g++ -o hello main.obj TicTacToe.obj minimax.obj nnue.obj
+all: $(EXE)
+
+$(EXE): $(OBJS)
+	$(CC) -o $(EXE) $(OBJS)
 
 main.obj: main.cpp
-	g++ -o main.obj -c main.cpp
+	$(CC) -o main.obj $(CFLAGS) main.cpp
 
 TicTacToe.obj: TicTacToe.cpp
-	g++ -o TicTacToe.obj -c TicTacToe.cpp
+	$(CC) -o TicTacToe.obj $(CFLAGS) TicTacToe.cpp
 
 minimax.obj: minimax.cpp
-	g++ -o minimax.obj -c minimax.cpp
+	$(CC) -o minimax.obj $(CFLAGS) minimax.cpp
 
 nnue.obj: nnue.cpp
-	g++ -o nnue.obj -c nnue.cpp
+	$(CC) -o nnue.obj $(CFLAGS) nnue.cpp
+
+dep.obj: dep.cpp
+	$(CC) -o dep.obj $(CFLAGS) dep.cpp
 
 clean:
-	rm -f *.obj hello
+	rm -f *.obj $(EXE)
+
+debug_mode: dep.obj $(OBJS)
+	$(CC) -o $(EXE) $(OBJS_debug)
 
 remake: clean all

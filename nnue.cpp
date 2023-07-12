@@ -6,25 +6,18 @@
 
 #define DEBUG
 
-char nnue_algorithm(char *pos){
-    std::vector<std::vector<w_type>> weight_ (qtd_neu, std::vector<w_type>(qtd_in));
-    std::vector<w_type> bias(qtd_neu);
-    fill_random(weight_);
-    fill_random(bias);
+char nnue_algorithm(char *pos, std::vector<std::vector<w_type>> &w_1, std::vector<std::vector<w_type>> &w_2, std::vector<w_type> &b_1, std::vector<w_type> &b_2){
+    fill_random(w_1);
+    fill_random(b_1);
     std::vector<w_type> neu(qtd_neu);
-    mul_matrix(weight_,&pos,neu);
-    sum_matrix(bias,neu,neu);
+    mul_matrix(w_1,&pos,neu);
+    sum_matrix(b_1,neu,neu);
     apply_sigmoid(neu);
-    std::vector<std::vector<w_type>> weight_2 (qtd_out, std::vector<w_type>(qtd_neu));
-    std::vector<w_type> bias_2(qtd_out);
-    fill_random(weight_2);
-    fill_random(bias_2);
     std::vector<w_type>results(qtd_out,0);
-    mul_matrix(weight_2,neu,results);
-    sum_matrix(results,bias_2,results);
+    mul_matrix(w_2,neu,results);
+    sum_matrix(results,b_2,results);
     apply_sigmoid(results);
     impress_w(results);
-
     return 0;
 }
 

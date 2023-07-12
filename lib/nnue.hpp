@@ -5,8 +5,10 @@ typedef double w_type;
 
 #include <vector>
 
+using namespace std;
+
 double sigmoid (double);
-char nnue_algorithm(char*);
+char nnue_algorithm(char*,vector<vector<w_type>>&,vector<vector<w_type>>&,vector<w_type>&,vector<w_type>&);
 void fill_random(std::vector<std::vector<w_type>>&);
 void fill_random(std::vector<w_type> &);
 void impress_w(std::vector<std::vector<w_type>>);
