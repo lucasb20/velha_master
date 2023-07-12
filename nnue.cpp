@@ -2,11 +2,12 @@
 #include <cstdlib>
 #include <iostream>
 #include "lib/nnue.hpp"
+#include <cmath>
 #include <vector>
 
 #define DEBUG
 
-char nnue_algorithm(char *pos, std::vector<std::vector<w_type>> &w_1, std::vector<std::vector<w_type>> &w_2, std::vector<w_type> &b_1, std::vector<w_type> &b_2){
+char nnue_algorithm(char *pos, std::vector<std::vector<w_type>> &w_1, std::vector<std::vector<w_type>> &w_2, std::vector<w_type> &b_1, std::vector<w_type> &b_2, std::vector<w_type> &ref){
     std::vector<w_type> neu(qtd_neu);
     mul_matrix(w_1,&pos,neu);
     sum_matrix(b_1,neu,neu);
@@ -15,8 +16,29 @@ char nnue_algorithm(char *pos, std::vector<std::vector<w_type>> &w_1, std::vecto
     mul_matrix(w_2,neu,results);
     sum_matrix(results,b_2,results);
     apply_sigmoid(results);
-    impress_w(results);
+    _copyVector(results,ref);
     return 0;
+}
+
+void _copyVector(std::vector<w_type> &src,std::vector<w_type> &des){
+    for(w_type &i : src){
+        des.push_back(i);
+    }
+}
+
+double cost(std::vector<w_type> a,std::vector<w_type> b){
+    double cost_num = 0;
+
+    if(a.size() != b.size()){
+        std::cout << "Erro." << std::endl;
+        exit(1);
+    }
+
+    for(int i = 0; i < a.size(); i++){
+        cost_num += (a[i]-b[i])*(a[i]-b[i]);
+    }
+
+    return cost_num;
 }
 
 void save_weight(std::string filename,std::vector<std::vector<w_type>> vector_){

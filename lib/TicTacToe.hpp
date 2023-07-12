@@ -45,6 +45,7 @@ class TicTacToe{
                 printf("%c",casa);
                 if(i%3==2)std::cout << '\n';
             }
+            std::cout << std::endl;
         }
 
         char getTurn(){

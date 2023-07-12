@@ -8,7 +8,7 @@ typedef double w_type;
 using namespace std;
 
 double sigmoid (double);
-char nnue_algorithm(char*,vector<vector<w_type>>&,vector<vector<w_type>>&,vector<w_type>&,vector<w_type>&);
+char nnue_algorithm(char*,vector<vector<w_type>>&,vector<vector<w_type>>&,vector<w_type>&,vector<w_type>&,vector<w_type>&);
 void fill_random(std::vector<std::vector<w_type>>&);
 void fill_random(std::vector<w_type> &);
 void impress_w(std::vector<std::vector<w_type>>);
@@ -25,3 +25,5 @@ void save_weight(std::string,std::vector<std::vector<w_type>>);
 void load_weight(std::string,std::vector<std::vector<w_type>>&);
 void load_weight(std::string,std::vector<w_type>&);
 void save_weight(std::string,std::vector<w_type>);
+void _copyVector(std::vector<w_type>&,std::vector<w_type>&);
+double cost(std::vector<w_type>,std::vector<w_type>);
