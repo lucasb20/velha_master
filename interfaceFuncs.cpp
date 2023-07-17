@@ -27,10 +27,29 @@ void drawPos(SDL_Window *window,SDL_Renderer *Render, char *pos){
         SDL_RenderDrawLine(Render, i * barHeight+160, 60, i * barHeight+160, boardSize+60);
     }    
 
-    int x_dist=20;
-    int o_dist=20;
+    int x_dist=60;
+    int o_dist=35;
 
     std::vector<std::vector<int>> pos_it(9,std::vector<int>(2,0));
+
+    pos_it[0][0] = 160+15;
+    pos_it[0][1] = 60+15;
+    pos_it[1][0] = pos_it[0][0]+100;
+    pos_it[1][1] = pos_it[0][1];
+    pos_it[2][0] = pos_it[1][0]+100;
+    pos_it[2][1] = pos_it[1][1];
+    pos_it[3][0] = pos_it[0][0];
+    pos_it[3][1] = pos_it[0][1]+100;
+    pos_it[4][0] = pos_it[3][0]+100;
+    pos_it[4][1] = pos_it[3][1];
+    pos_it[5][0] = pos_it[4][0]+100;
+    pos_it[5][1] = pos_it[4][1];
+    pos_it[6][0] = pos_it[3][0];
+    pos_it[6][1] = pos_it[3][1]+100;
+    pos_it[7][0] = pos_it[6][0]+100;
+    pos_it[7][1] = pos_it[6][1];
+    pos_it[8][0] = pos_it[7][0]+100;
+    pos_it[8][1] = pos_it[7][1];
 
     for(int i = 0; i < 9; i++){
         switch(pos[i]){
@@ -44,7 +63,7 @@ void drawPos(SDL_Window *window,SDL_Renderer *Render, char *pos){
             break;
 
             case 2:
-            drawCircle(Render,pos_it[i][0]+o_dist,pos_it[i][1]+o_dist,x_dist);
+            drawCircle(Render,pos_it[i][0]+o_dist,pos_it[i][1]+o_dist,x_dist/1.5);
             break;
 
             default:
@@ -56,7 +75,7 @@ void drawPos(SDL_Window *window,SDL_Renderer *Render, char *pos){
 
 void drawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius){
     int x, y;
-    for (int angle = 0; angle <= 360; angle += 10)
+    for (int angle = 0; angle <= 360; angle += 1)
     {
         float radians = angle * M_PI / 180.0;
         x = centerX + radius * cos(radians);
