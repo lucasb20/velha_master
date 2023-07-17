@@ -71,6 +71,8 @@ void drawPos(SDL_Window *window,SDL_Renderer *Render, char *pos){
             exit(1);
         }
     }
+
+    SDL_RenderPresent(Render);
 }
 
 void drawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius){
