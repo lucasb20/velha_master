@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -c
 OBJS = main.obj TicTacToe.obj minimax.obj
 OBJS_debug = dep.obj TicTacToe.obj minimax.obj nnue.obj
-OBJS_inter = interface.obj TicTacToe.obj minimax.obj
+OBJS_inter = interface.obj TicTacToe.obj minimax.obj interfaceFuncs.obj
 EXE = hello
 
 all: $(EXE)
@@ -27,6 +27,9 @@ dep.obj: dep.cpp
 
 interface.obj: interface.cpp
 	$(CC) -o interface.obj $(CFLAGS) interface.cpp
+
+interfaceFuncs.obj: interfaceFuncs.cpp
+	$(CC) -o interfaceFuncs.obj $(CFLAGS) interfaceFuncs.cpp
 
 clean:
 	rm -f *.obj $(EXE)

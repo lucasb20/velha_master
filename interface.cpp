@@ -1,20 +1,25 @@
 #include "lib/interface.hpp"
-#include <iostream>
-#include <cstdlib>
-#include <SDL2/SDL.h>
 
-int main(){
+
+int main(int argc, char ** argv){
+    /* if(argc!=2){
+        printf("Digite %s <choose>\n",*argv);
+        printf("op:\n0 -> Player vs Player\n1 -> Player vs Engine\n2 -> Engine vs Player\n3 -> Engine vs Engine\n");
+        exit(1);
+    }
+    int choose = atoi(*(argv+1)); */
+
+    srand(time(NULL));
+
     if(SDL_Init(SDL_INIT_VIDEO)){
         std::cout << "Erro." << std::endl;
         SDL_Quit();
         exit(1);
     }
 
-    int window_height=640, window_width=480;
-
     SDL_Window *window = nullptr;
 
-    window = SDL_CreateWindow("Velha Master", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_height, window_width, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Velha Master", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
 
     if(window == nullptr){
         std::cout << "Erro." << std::endl;
@@ -26,16 +31,10 @@ int main(){
 
     Render = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    SDL_Rect background;
+    char pos[] = {0,0,0,0,0,0,0,0,0};
 
-    SDL_GetWindowSize(window,&window_width,&window_height);
+    drawPos(window,Render,pos);
 
-    background.x = background.y = 0;
-    background.h = window_height;
-    background.w = window_width;
-
-    SDL_SetRenderDrawColor(Render, 200, 255, 200, 255);
-    SDL_RenderFillRect(Render,&background);
     SDL_RenderPresent(Render);
 
     bool isRunning = true;
