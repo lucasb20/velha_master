@@ -5,3 +5,4 @@
 
 void drawPos(SDL_Window*,SDL_Renderer*,char*);
 void drawCircle(SDL_Renderer*,int,int,int);
+char getPlayer(char*);

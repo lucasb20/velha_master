@@ -38,31 +38,56 @@ int main(int argc, char ** argv){
 
     SDL_Event ev;
 
-    char move,turn = 0;
+    char move;
 
     drawPos(window,Render,partida.match);
 
     SDL_RenderPresent(Render);
+    
+    char (*player1)(char*);
+    char (*player2)(char*);
+
+    switch(choose){
+        case 0:
+        player1 = &getPlayer;
+        player2 = &getPlayer;
+        break;
+
+        case 1:
+        player1 = &getPlayer;
+        player2 = &do_machine_move;
+        break;
+
+        case 2:
+        player1 = &do_machine_move;
+        player2 = &getPlayer;
+        break;
+
+        default:
+        player1 = &do_machine_move;
+        player2 = &do_machine_move;
+        break;
+    }
 
     while(isRunning){
+
         while(SDL_PollEvent(&ev) != 0){
             if(ev.type == SDL_QUIT){
                 isRunning = false;
             }
         }
-
         printf("Vez do X:\n");
 
-        move = do_machine_move(partida.match);
+        move = player1(partida.match);
         if(move != -3)partida.do_move(move);
-
-        printf("Vez do 0:\n");
 
         drawPos(window,Render,partida.match);
         SDL_Delay(500);
         if(check_winner(partida.match) != 0)break;
 
-        move = do_machine_move(partida.match);
+        printf("Vez do O:\n");
+
+        move = player2(partida.match);
         if(move != -3)partida.do_move(move);
         drawPos(window,Render,partida.match);
         SDL_Delay(500);

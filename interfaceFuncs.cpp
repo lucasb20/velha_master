@@ -85,3 +85,8 @@ void drawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius){
         SDL_RenderDrawPoint(renderer, x, y);
     }
 }
+
+char getPlayer(char *){
+    //Get Player Coords
+    return -3;
+}
