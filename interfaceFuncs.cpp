@@ -71,8 +71,6 @@ void drawPos(SDL_Window *window,SDL_Renderer *Render, char *pos){
             exit(1);
         }
     }
-
-    SDL_RenderPresent(Render);
 }
 
 void drawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius){
@@ -86,7 +84,55 @@ void drawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius){
     }
 }
 
-char getPlayer(char *){
-    //Get Player Coords
+char getPlayer(char *pos){
+    std::vector<std::vector<int>> pos_it(9,std::vector<int>(2,0));
+
+    pos_it[0][0] = 160+15;
+    pos_it[0][1] = 60+15;
+    pos_it[1][0] = pos_it[0][0]+100;
+    pos_it[1][1] = pos_it[0][1];
+    pos_it[2][0] = pos_it[1][0]+100;
+    pos_it[2][1] = pos_it[1][1];
+    pos_it[3][0] = pos_it[0][0];
+    pos_it[3][1] = pos_it[0][1]+100;
+    pos_it[4][0] = pos_it[3][0]+100;
+    pos_it[4][1] = pos_it[3][1];
+    pos_it[5][0] = pos_it[4][0]+100;
+    pos_it[5][1] = pos_it[4][1];
+    pos_it[6][0] = pos_it[3][0];
+    pos_it[6][1] = pos_it[3][1]+100;
+    pos_it[7][0] = pos_it[6][0]+100;
+    pos_it[7][1] = pos_it[6][1];
+    pos_it[8][0] = pos_it[7][0]+100;
+    pos_it[8][1] = pos_it[7][1];
+
+    SDL_Event event;
+    int running = 1;
+
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                running = 0;
+            }
+            else if (event.type == SDL_MOUSEBUTTONDOWN) {
+                if (event.button.button == SDL_BUTTON_LEFT) {
+                    int mouseX = event.button.x;
+                    int mouseY = event.button.y;
+                    
+                    for(int i = 0; i < 9; i++){
+                        if(pos[i] != 0){
+                            continue;
+                        }
+                        else if (mouseX >= pos_it[i][0] && mouseX <= pos_it[i][0]+100 && mouseY >= pos_it[i][1] && mouseY <= pos_it[i][1]+100) {
+                            running = 0;
+                            return i;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
     return -3;
 }

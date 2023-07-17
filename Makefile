@@ -1,5 +1,6 @@
 CC = g++
 CFLAGS = -c
+LFLAGS = -lSDL2
 OBJS = main.obj TicTacToe.obj minimax.obj
 OBJS_debug = dep.obj TicTacToe.obj minimax.obj nnue.obj
 OBJS_inter = interface.obj TicTacToe.obj minimax.obj interfaceFuncs.obj
@@ -35,7 +36,7 @@ clean:
 	rm -f *.obj $(EXE)
 
 inter: $(OBJS_inter)
-	$(CC) -o $(EXE) $(OBJS_inter) -lSDL2
+	$(CC) -o $(EXE) $(OBJS_inter) $(LFLAGS)
 
 debug: $(OBJS_debug)
 	$(CC) -o $(EXE) $(OBJS_debug)

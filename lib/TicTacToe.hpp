@@ -49,7 +49,7 @@ class TicTacToe{
         }
 
         char getTurn(){
-            return !(this->lance%2)?'x':'o';
+            return !(this->lance%2)?'X':'O';
         }
 
         char getTurn_num(){

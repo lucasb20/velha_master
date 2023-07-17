@@ -11,6 +11,7 @@ int main(int argc, char ** argv){
     int choose = atoi(*(argv+1));
 
     srand(time(NULL));
+    SDL_SetHint(SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "0");
 
     if(SDL_Init(SDL_INIT_VIDEO)){
         std::cout << "Erro." << std::endl;
@@ -34,16 +35,6 @@ int main(int argc, char ** argv){
 
     TicTacToe partida;
 
-    bool isRunning = true;
-
-    SDL_Event ev;
-
-    char move;
-
-    drawPos(window,Render,partida.match);
-
-    SDL_RenderPresent(Render);
-    
     char (*player1)(char*);
     char (*player2)(char*);
 
@@ -69,28 +60,33 @@ int main(int argc, char ** argv){
         break;
     }
 
-    while(isRunning){
+    char move;
+    drawPos(window,Render,partida.match);
+    SDL_RenderPresent(Render);
 
-        while(SDL_PollEvent(&ev) != 0){
-            if(ev.type == SDL_QUIT){
-                isRunning = false;
-            }
-        }
-        printf("Vez do X:\n");
+    SDL_Event ev;
 
-        move = player1(partida.match);
+    bool running = true;
+
+    while(running){
+        printf("Vez do %c:\n",partida.getTurn());
+
+        move = (!(partida.getTurn_num()%2))?player1(partida.match):player2(partida.match);
         if(move != -3)partida.do_move(move);
 
         drawPos(window,Render,partida.match);
+        SDL_RenderPresent(Render);
+
         SDL_Delay(500);
         if(check_winner(partida.match) != 0)break;
+    }
 
-        printf("Vez do O:\n");
-
-        move = player2(partida.match);
-        if(move != -3)partida.do_move(move);
-        drawPos(window,Render,partida.match);
-        SDL_Delay(500);
+    switch(check_winner(partida.match)){
+        case -1:
+        std::cout << "Draw.\n";
+        break;
+        default:
+        printf("O vencedor foi %c.\n",(check_winner(partida.match)%2)?'X':'O');
     }
 
     SDL_DestroyWindow(window);

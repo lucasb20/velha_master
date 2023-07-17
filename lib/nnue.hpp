@@ -4,6 +4,7 @@ typedef double w_type;
 #define qtd_out 9
 
 #include <vector>
+#include <string>
 
 using namespace std;
 
