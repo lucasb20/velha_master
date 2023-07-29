@@ -3,6 +3,6 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
-void drawPos(SDL_Window*,SDL_Renderer*,char*);
+void drawPos(SDL_Window*,SDL_Renderer*,std::vector<char>);
 void drawCircle(SDL_Renderer*,int,int,int);
-char getPlayer(char*);
+char getPlayer(std::vector<char>);

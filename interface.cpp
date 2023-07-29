@@ -35,8 +35,8 @@ int main(int argc, char ** argv){
 
     TicTacToe partida;
 
-    char (*player1)(char*);
-    char (*player2)(char*);
+    char (*player1)(std::vector<char>);
+    char (*player2)(std::vector<char>);
 
     switch(choose){
         case 0:

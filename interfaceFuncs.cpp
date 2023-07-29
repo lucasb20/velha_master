@@ -1,6 +1,6 @@
 #include "lib/interface.hpp"
 
-void drawPos(SDL_Window *window,SDL_Renderer *Render, char *pos){
+void drawPos(SDL_Window *window,SDL_Renderer *Render, std::vector<char>pos){
     SDL_Rect background;
 
     int window_height = 0, window_width = 0;
@@ -84,7 +84,7 @@ void drawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius){
     }
 }
 
-char getPlayer(char *pos){
+char getPlayer(std::vector<char> pos){
     std::vector<std::vector<int>> pos_it(9,std::vector<int>(2,0));
 
     pos_it[0][0] = 160+15;

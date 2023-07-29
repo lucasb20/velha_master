@@ -1,18 +1,14 @@
 #include <iostream>
+#include <vector>
 
 #ifndef TICTACTOE_H
 #define TICTACTOE_H
 class TicTacToe{
     public:
-        unsigned char lance;
-        char match[9];
+        int lance;
+        std::vector <char> match;
     
-        TicTacToe(){
-            for(char &i : this->match){
-                i = 0;
-            }
-            this->lance = 0;
-        }
+        TicTacToe(): match(9,0),lance(0){}
 
         bool do_move(char casa){
             if(this->match[casa]==0){
@@ -26,17 +22,17 @@ class TicTacToe{
         }
 
         void display_match(){
-            char casa=-1;
+            char casa = -1;
             for(int i = 0; i < 9; i++){
                 switch(this->match[i]){
                     case 0:
                     casa = '-';
                     break;
                     case 1:
-                    casa = 'x';
+                    casa = 'X';
                     break;
                     case 2:
-                    casa = 'o';
+                    casa = 'O';
                     break;
                     default:
                     casa = '?';
@@ -52,7 +48,7 @@ class TicTacToe{
             return !(this->lance%2)?'X':'O';
         }
 
-        char getTurn_num(){
+        int getTurn_num(){
             return !(this->lance%2)?1:2;
         }
 
@@ -70,4 +66,4 @@ void play_human_game(TicTacToe*);
 //Não terminal  ->  0
 //X ganhou      ->  1
 //O ganhou      ->  2
-char check_winner(char*);
+char check_winner(std::vector<char>);

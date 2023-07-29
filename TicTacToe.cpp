@@ -1,14 +1,14 @@
 #include "lib/TicTacToe.hpp"
 
 void play_human_game(TicTacToe *partida){
-    char turn;
+    int turn;
     int i, j;
     char move;
     
     while(check_winner(partida->match)==0){
         partida->display_match();
         turn = partida->getTurn();
-        printf("Vez do %c\n",turn);
+        printf("Vez do %c (Formato -> linha,coluna)\n",turn);
         do{
             scanf("%d,%d",&i,&j);
             move = (i-1)*3+(j-1);
@@ -24,7 +24,7 @@ void play_human_game(TicTacToe *partida){
     }
 }
 
-char check_winner(char*partida){
+char check_winner(std::vector<char> partida){
     char winner = 0;
     char qtd_winner = 0;
     #ifdef DEBUG
