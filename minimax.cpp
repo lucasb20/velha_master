@@ -1,8 +1,6 @@
 #include "lib/minimax.hpp"
 #include "lib/TicTacToe.hpp"
 
-//define DEBUG
-
 char _max(std::vector <char> pos, position *ref){
     std::vector<position> copias;
 
@@ -18,15 +16,7 @@ char _max(std::vector <char> pos, position *ref){
         return rand_num;
     }
 
-    #ifdef DEBUG
-    printf("\nref->val alocado.\n");
-    #endif
     ref->val=0;
-
-    #ifdef DEBUG
-    printf("\nPosição recebida (max) -> %hhd.\n",check_winner(pos));
-    display(pos);
-    #endif
 
     if(check_winner(pos)!=0){
         if(check_winner(pos)==-2){
@@ -34,17 +24,9 @@ char _max(std::vector <char> pos, position *ref){
             exit(1);
         }
         ref->val = aval_pos(pos);
-        #ifdef DEBUG
-        printf("\nPosição calculada (max) -> %hhd.\n",ref->val);
-        display(ref->array);
-        #endif  
         copy_match(pos,ref->array);
         return -1;
     }
-    
-    #ifdef DEBUG
-    printf("\nCalculando jogada seguinte (max).\n");
-    #endif
 
     std::vector<position> results;
 
@@ -77,26 +59,13 @@ char _max(std::vector <char> pos, position *ref){
     undo_move(copias[max_val].array,max_diff);
     copy_match(copias[max_val].array,ref->array);
 
-    #ifdef DEBUG
-    printf("\nPosição resultado: [%hhd]\n",ref->val);
-    display(ref->array);
-    #endif
-
     return max_diff;
 }
 
 char _min(std::vector <char> pos,position *ref){
     std::vector<position> copias;
-    
-    #ifdef DEBUG
-    printf("\nref->val alocado.\n");
-    #endif
-    ref->val=0;   
 
-    #ifdef DEBUG
-    printf("\nPosição recebida (min) -> %hhd.\n",check_winner(pos));
-    display(pos);
-    #endif
+    ref->val=0;   
 
     if(check_winner(pos)!=0){
         if(check_winner(pos)==-2){
@@ -105,16 +74,8 @@ char _min(std::vector <char> pos,position *ref){
         }
         ref->val = aval_pos(pos);
         copy_match(pos,ref->array); 
-        #ifdef DEBUG
-        printf("\nPosição calculada (min) -> %hhd.\n",ref->val);
-        display(ref->array);
-        #endif
         return -1;
     }
-
-    #ifdef DEBUG
-    printf("\nCalculando jogada seguinte (min).\n");
-    #endif
 
     std::vector<position> results;
 
@@ -164,10 +125,6 @@ void copy_and_move(std::vector<char> pos,std::vector<char>&ref,char move,char tu
     }
 
     ref[move] = turn;
-    #ifdef DEBUG
-    printf("Movimento a considerar [%hhd].\n",move);
-    display(ref);
-    #endif
 }
 
 int search_max(std::vector<position> &copias){
@@ -175,10 +132,6 @@ int search_max(std::vector<position> &copias){
     int pos = 0;
     for(int i=1; i<copias.size();i++){
         if(copias[i].val>maior){
-            #ifdef DEBUG
-            printf("\nMelhor posição: (max)\n");
-            display(copias[i].array);
-            #endif
             maior = copias[i].val;
             pos = i;
         }
@@ -191,10 +144,6 @@ int search_min(std::vector<position> &copias){
     int pos = 0;
     for(int i=1; i<copias.size();i++){
         if(copias[i].val<menor){
-            #ifdef DEBUG
-            printf("\nMelhor posição: (min)\n");
-            display(copias[i].array);
-            #endif
             menor = copias[i].val;
             pos = i;
         }
@@ -219,28 +168,6 @@ char do_machine_move(std::vector<char> pos){
     res = check_diff(aux->array,pos);
     delete aux;
     return res;
-}
-
-void display(std::vector<char> pos){
-    char casa=-1;
-    for(int i = 0; i < 9; i++){
-        switch(pos[i]){
-            case 0:
-            casa = '-';
-            break;
-            case 1:
-            casa = 'X';
-            break;
-            case 2:
-            casa = 'O';
-            break;
-            default:
-            casa = '?';
-            break;
-        }
-        printf("%c",casa);
-        if(i%3==2)std::cout << '\n';
-    }
 }
 
 void play_vs_engine(TicTacToe *partida, int option){

@@ -14,7 +14,6 @@ void copy_match(std::vector <char>,std::vector<char>&);
 int search_max(std::vector<position>&);
 int search_min(std::vector<position>&);
 char do_machine_move(std::vector<char>);
-void display(std::vector<char>);
 void play_vs_engine(TicTacToe*,int);
 char aval_pos(std::vector<char>);
 char check_diff(std::vector<char>,std::vector<char>);
