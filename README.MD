@@ -1,32 +1,31 @@
 # Velha Master
 
-Um projeto de Jogo da Velha.
+**Descrição**
 
-* Você pode jogar Player vs Player, Player vs Maquina ou apenas ver uma partida entre os algoritmos.
+ Esse é um projeto de Jogo da Velha feito em C# com .NET. É possível fazer partidas normais entre pessoas, mas o foco é a interação com a engine chamada de Velha Master.
 
-* O modo normal é no terminal, mas também há uma interface gráfica simples. Você seleciona o modo de jogo por linha de execução do mesmo jeito, mas a partida ocorre na tela e os movimentos são feitos com o clique do mouse.
+**Recursos**
 
-* A 'máquina' é um algoritmo que utiliza busca competitiva, o famoso minimax.
+* Partida normal entre dois humanos
+* Desafio de jogar contra o Velha Master, tanto de X quanto de O. 
+* Ver partida de Engine vs Engine.
 
-* Depois de 3 dias seguidos de pura depuração tentando ajustar a precisão do algoritmo, eu consegui. Finalmente o algoritmo Minimax alcançou uma precisão muito boa.
+**Objetivos**
 
-* Só não vou dizer que é uma precisão perfeita porque ele não difere posições minimamente melhores. Com 'posições melhores' quero dizer casos em que há mais chance do adversário errar. Se tiver como escolher entre duas posições empatadas, ele não vai se importar de saber que em uma o adversário tem mais opções de lances ruins e em outra só leva direto ao empate, ele escolhe qualquer uma delas.
+O objetivo do projeto é possibilitar uma interação com o algoritmo de busca competitiva, famoso Minimax. É uma I.A que busca as soluções das posições na força bruta.
 
-* Instruções para a instalação:
-    - Obviamente para um projeto em C++ precisará de um compilador de C++ instalado. O compilador utilizado no desenvolvimento foi o GNU 11.4.0, com o C++17.
+**Instruções de instalação**
 
-    - Executar o Makefile já criado irá facilitar a compilação, e ainda há a possibilidade de editar ele.
+**Requisitos de sistema**
 
-    - A única biblioteca externa utilizada foi a de SDL2, para gerar a interface. Para utilizar o arquivo que inicia a interface, será necessário instalar ela. Caso não planeje baixar a biblioteca do SDL2, é possível apenas usar o aplicativo pelo terminal.
+* .NET 8.0.0
 
-* Algumas screenshots:
-    - Exemplo de partida Player vs Player no terminal.
-    ![Exemplo de partida Player vs Player no terminal](other/Screenshot1.png)
+**Instalação do aplicativo**
 
-    - Exemplo de partida Engine vs Engine com interface.
-    ![Exemplo de partida Engine vs Engine com interface](other/Screenshot2.png)
+1. Entre na pasta do aplicativo
+2. Execute o comando `dotnet run` para compilar e executar o projeto
+3. Siga as instruções do terminal para começar
 
-* Ideias a se considerar:
-    - Criar uma rede neural que aprenda a jogar jogo da velha com apoio do Minimax.
-    - Melhorar o código de interface, talvez com outra biblioteca.
-    - Criar uma interface para o menu.
+**Screenshots**
+
+![Exemplo de partida no terminal](other/Screenshot1.png)
