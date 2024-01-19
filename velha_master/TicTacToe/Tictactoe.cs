@@ -67,4 +67,44 @@ public class TicTacToe{
                 _match[i] = array[i];
             }
         }
+
+        public static int Check_Winner(int[] partida){
+            int winner = 0;
+            int qtd_winner = 0;
+            for(int i = 0; i < 7; i+=3){
+                if((partida[i] == partida[i+1]) && (partida[i+1] == partida[i+2]) && (partida[i] != 0)){
+                    winner = partida[i];
+                    qtd_winner++;
+                }
+            }
+            for(int i = 0; i < 3; i++){
+                if((partida[i] == partida[i+3]) && (partida[i+3] == partida[i+6]) && (partida[i] != 0)){
+                    winner = partida[i];
+                    qtd_winner++;
+                }
+            }
+            if((partida[0] == partida[4]) && (partida[4] == partida[8]) && (partida[0] != 0)){
+                    winner = partida[0];
+                    qtd_winner++;
+                }
+            if((partida[2] == partida[4]) && (partida[4] == partida[6]) && (partida[2] != 0)){
+                    winner = partida[2];
+                    qtd_winner++;
+                }
+
+            if(qtd_winner > 1)return -2;
+
+            if(winner != 0)return winner;
+
+            bool draw = true;
+            for(int i = 0; i < 9; i++)if(partida[i]==0)draw=false;
+
+            if(draw)return -1;
+
+            return 0;
+        }
+
+        public int Check_Winner(){
+            return Check_Winner(_match);
+        }
 };
