@@ -9,6 +9,17 @@ public static class Tests
     }
     public static void Criar_Partida(){
         var my_match = new TicTacToe();
-        Console.WriteLine($"my_match = {my_match._match}");
+        my_match.DoMove(2);
+        my_match.DoMove(5);
+        try
+        {
+            my_match.DoMove(5);
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Tudo certo por aqui.");
+        }
+        my_match.DisplayMatch();
+        Console.WriteLine("Lance: {0} {1}", my_match.GetTurn_num(), my_match.GetTurn());
     }
 }

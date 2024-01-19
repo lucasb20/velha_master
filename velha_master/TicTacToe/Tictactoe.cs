@@ -19,7 +19,7 @@ public class TicTacToe{
             }
         }
 
-        public void DoMove(char casa){
+        public void DoMove(int casa){
             if(_match[casa]==(int)Tttenum.empty){
                 _match[casa] = (int) ((_lance%2==0)?Tttenum.X:Tttenum.O);
                 _lance++;
@@ -29,19 +29,28 @@ public class TicTacToe{
         }
 
         public void DisplayMatch(){
-            int casa;
-            for(int i = 0; i < 9; i++){
-                casa = _match[i] switch
-                {
-                    (int) Tttenum.empty => '-',
-                    (int) Tttenum.X => 'X',
-                    (int) Tttenum.O => 'O',
-                    _ => '?',
-                };
-                Console.Write(casa);
-                    if(i%3==2){
-                        Console.Write("\n");
+            char casa;
+            var i = 0;
+            foreach(var space in _match){
+                if(space == (int) Tttenum.empty){
+                    casa = '-';
                 }
+                else if (space == (int) Tttenum.X){
+                    casa = 'X';
+                }
+                else if (space == (int) Tttenum.O){
+                    casa = 'O';
+                }
+                else{
+                    casa = '?';
+                }
+
+                Console.Write(casa);
+                if(i%3==2){
+                    Console.Write("\n");
+                }
+
+                i++;
             }
         }
 

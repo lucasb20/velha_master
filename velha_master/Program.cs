@@ -1,10 +1,12 @@
-﻿namespace velha_master
+﻿namespace velha_master;
+
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
+        Console.WriteLine("Hello World!");
+        if(args[0] == "test"){
+            Tests.Tests.Test_All();
         }
     }
 }
