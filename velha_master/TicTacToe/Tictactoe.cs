@@ -1,6 +1,6 @@
-namespace velha_master.TicTacToe;
+namespace velha_master.Logic;
 
-enum tttenum
+public enum Tttenum
 {
     empty = 0,
     X = 1,
@@ -9,62 +9,53 @@ enum tttenum
 
 public class TicTacToe{
         public int _lance;
-        public char[] _match;
+        public int[] _match;
     
         public TicTacToe(){
-            this._lance = 0;
-            this._match = new char[9];
+            _lance = 0;
+            _match = new int[9];
             for(int i = 0; i < 9; i++){
-                this._match[i] = tttenum.empty;
+                _match[i] =  (int)Tttenum.empty;
             }
         }
 
-        public void do_move(char casa){
-            if(this._match[casa]==tttenum.empty){
-                this._match[casa] = (!(this->_lance%2))?tttenum.X:tttenum.O;
-                this->_lance++;
-                return true;
+        public void DoMove(char casa){
+            if(_match[casa]==(int)Tttenum.empty){
+                _match[casa] = (int) ((_lance%2==0)?Tttenum.X:Tttenum.O);
+                _lance++;
+                return;
             }
-            else{
-                return new Exception("Casa já ocupada");
-            }
+                throw new Exception("Casa já ocupada");
         }
 
-        public void display_match(){
-            char casa = -1;
+        public void DisplayMatch(){
+            int casa;
             for(int i = 0; i < 9; i++){
-                switch(this->_match[i]){
-                    case tttenum.empty:
-                    casa = '-';
-                    break;
-                    case tttenum.X:
-                    casa = 'X';
-                    break;
-                    case tttenum.O:
-                    casa = 'O';
-                    break;
-                    default:
-                    casa = '?';
-                    break;
-                }
-                Console.log(casa);
-                if(i%3==2){
-                    Console.log("\n");
+                casa = _match[i] switch
+                {
+                    (int) Tttenum.empty => '-',
+                    (int) Tttenum.X => 'X',
+                    (int) Tttenum.O => 'O',
+                    _ => '?',
+                };
+                Console.Write(casa);
+                    if(i%3==2){
+                        Console.Write("\n");
                 }
             }
         }
 
-        public char getTurn(){
-            return !(this->_lance%2)?'X':'O';
+        public char GetTurn(){
+            return _lance%2==0?'X':'O';
         }
 
-        public int getTurn_num(){
-            return !(this->_lance%2)?tttenum.X:tttenum.O;
+        public int GetTurn_num(){
+            return (int)(_lance%2==0?Tttenum.X:Tttenum.O);
         }
 
-        public void define_match(char[] array){
+        public void Define_Match(char[] array){
             for(int i = 0; i < 9; i++){
-                this->_match[i] = array[i];
+                _match[i] = array[i];
             }
         }
 };
