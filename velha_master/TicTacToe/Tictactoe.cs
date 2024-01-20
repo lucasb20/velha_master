@@ -69,7 +69,7 @@ public class TicTacToe{
             return (int)(_lance%2==0?Tttenum.X:Tttenum.O);
         }
 
-        public void Define_Match(char[] array){
+        public void Define_Match(int[] array){
             for(int i = 0; i < 9; i++){
                 _match[i] = array[i];
             }
