@@ -62,25 +62,22 @@ public static class Minimax
             return -1;
         }
 
-        var children = new List<Node>();
-
+        int val_max = -2;
+        int best_move = -1;
         for(int i = 0; i < 9; i++){
             if(pos._array._match[i] == (int) Tttenum.empty){
                 var node = new Node();
                 node.Define(i, pos);
-                children.Add(node);
+                _ = Min(node);
+                if(node._val > val_max){
+                    val_max = node._val;
+                    best_move = i;
+                }
             }
         }
 
-        foreach (var node in children)
-        {
-            _ = Min(node);
-        }
-
-        int pos_max = Search_Max(children);
-        pos.Define(children[pos_max]._val);
-
-        return FindDiffMove(pos, children[pos_max]);
+        pos.Define(val_max);
+        return best_move;
     }
 
     public static int Min(Node pos){
@@ -89,25 +86,22 @@ public static class Minimax
             return -1;
         }
 
-        var children = new List<Node>();
-
+        int val_min = 2;
+        int best_move = -1;
         for(int i = 0; i < 9; i++){
             if(pos._array._match[i] == (int) Tttenum.empty){
                 var node = new Node();
                 node.Define(i, pos);
-                children.Add(node);
+                _ = Max(node);
+                if(node._val < val_min){
+                    val_min = node._val;
+                    best_move = i;
+                }
             }
         }
 
-        foreach (var node in children)
-        {
-            _ = Max(node);
-        }
-
-        int pos_min = Search_Min(children);
-        pos.Define(children[pos_min]._val);
-
-        return FindDiffMove(pos, children[pos_min]);
+        pos.Define(val_min);
+        return best_move;
     }
 
     private static bool Check_First_Move(Node pos){
@@ -134,42 +128,5 @@ public static class Minimax
         else{
             return 0;
         }
-    }
-
-    private static int Search_Max(List<Node> array){
-        int max = -2;
-        int i = 0;
-        int pos = -1;
-        foreach(var node in array){
-            if(node._val > max){
-                max = node._val;
-                pos = i;
-            }
-            i++;
-        }
-        return pos;
-    }
-
-    private static int Search_Min(List<Node> array){
-        int min = 2;
-        int i = 0;
-        int pos = -1;
-        foreach(var node in array){
-            if(node._val < min){
-                min = node._val;
-                pos = i;
-            }
-            i++;
-        }
-        return pos;
-    }
-
-    private static int FindDiffMove(Node a, Node b){
-        for(int i = 0; i < 9; i++){
-            if(a._array._match[i] != b._array._match[i]){
-                return i;
-            }
-        }
-        return -1;
     }
 }

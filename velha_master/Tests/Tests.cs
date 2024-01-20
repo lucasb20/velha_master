@@ -26,9 +26,9 @@ public static class Tests
     public static void Minimax_Debug(){
         _ = Minimax.Max(new Node());
 
-        /*var node1 = new Node();
+        var node1 = new Node();
         node1._array.Define_Match([1,2,1,2,1,2,2,1,0]);
-        Assert(Minimax.Max(node1) == 8);*/
+        Assert(Minimax.Max(node1) == 8);
 
         var node2 = new Node();
         node2._array.Define_Match([0,0,0,2,1,0,2,1,0]);
