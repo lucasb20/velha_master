@@ -19,32 +19,29 @@ public static class Tests
         }
         catch (Exception)
         {
-            Assert(true);
+            Assert(true, true);
         }
-        Assert(my_match.GetTurn_num() == 1);
+        Assert(my_match.GetTurn_num(), 1);
     }
     public static void Minimax_Debug(){
         _ = Minimax.Max(new Node());
 
         var node1 = new Node();
         node1._array.Define_Match([1,2,1,2,1,2,2,1,0]);
-        Assert(Minimax.Max(node1) == 8);
+        Assert(Minimax.Max(node1), 8);
 
         var node2 = new Node();
         node2._array.Define_Match([0,0,0,2,1,0,2,1,0]);
-        try{
-            Assert(Minimax.Max(node2) == 1);
-        }catch(ImpossibleMatchFoundException e){
-            Console.WriteLine(e.Message);
-        }
+        Assert(Minimax.Max(node2), 1);
+
     }
 
-    public static void Assert(bool teste){
-        if(!teste){
-            Console.WriteLine("Invalid Assert.");
+    public static void Assert(object obj1, object obj2){
+        if(obj1.ToString() == obj2.ToString()){
+            Console.WriteLine("Correct Assert.");
         }
         else{
-            Console.WriteLine("Correct Assert.");
+            Console.WriteLine($"Invalid Assert. {obj1} != {obj2}");
         }
     }
 }

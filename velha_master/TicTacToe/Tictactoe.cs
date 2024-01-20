@@ -78,29 +78,29 @@ public class TicTacToe{
 
         public static int Check_Winner(int[] partida){
             int winner = (int) Tttenum.empty;
-            int qtd_winner = 0;
+            //int qtd_winner = 0;
             for(int i = 0; i < 7; i+=3){
                 if((partida[i] == partida[i+1]) && (partida[i+1] == partida[i+2]) && (partida[i] != (int) Tttenum.empty)){
                     winner = partida[i];
-                    qtd_winner++;
+                    //qtd_winner++;
                 }
             }
             for(int i = 0; i < 3; i++){
                 if((partida[i] == partida[i+3]) && (partida[i+3] == partida[i+6]) && (partida[i] != (int) Tttenum.empty)){
                     winner = partida[i];
-                    qtd_winner++;
+                    //qtd_winner++;
                 }
             }
             if((partida[0] == partida[4]) && (partida[4] == partida[8]) && (partida[0] != (int) Tttenum.empty)){
                     winner = partida[0];
-                    qtd_winner++;
+                    //qtd_winner++;
                 }
             if((partida[2] == partida[4]) && (partida[4] == partida[6]) && (partida[2] != (int) Tttenum.empty)){
                     winner = partida[2];
-                    qtd_winner++;
+                    //qtd_winner++;
                 }
 
-            if(qtd_winner > 1)return (int) Statesenum.impossible;
+            //if(qtd_winner > 1)return (int) Statesenum.impossible;
 
             if(winner != (int) Tttenum.empty)return winner;
 

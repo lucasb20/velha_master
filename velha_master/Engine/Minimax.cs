@@ -36,7 +36,7 @@ public class Node
     }
 
     public void DisplayMatch(){
-        Console.WriteLine("val = {0} Eval_Pos = {1}", _val, Minimax.Evaluate_Pos(this));
+        Console.WriteLine("val = {0}", _val);
         _array.DisplayMatch();
     }
 
