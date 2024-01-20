@@ -15,9 +15,9 @@ public static class Game
             Console.WriteLine($"Vez do {turn}");
             do{
                 Console.WriteLine("Digite o número da linha.");
-                i = int.Parse(Console.ReadLine());
+                _ = int.TryParse(Console.ReadLine(), out i);
                 Console.WriteLine("Digite o número da coluna.");
-                j = int.Parse(Console.ReadLine());
+                _ = int.TryParse(Console.ReadLine(), out j);
                 move = (i-1)*3+(j-1);
             }while(!partida.DoMove(move));
         }
