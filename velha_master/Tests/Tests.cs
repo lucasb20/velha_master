@@ -1,3 +1,4 @@
+using velha_master.Engine;
 using velha_master.Logic;
 
 namespace velha_master.Tests;
@@ -6,6 +7,7 @@ public static class Tests
 {   
     public static void Test_All(){
         Criar_Partida();
+        Minimax_Debug();
     }
     public static void Criar_Partida(){
         var my_match = new TicTacToe();
@@ -21,5 +23,24 @@ public static class Tests
         }
         my_match.DisplayMatch();
         Console.WriteLine("Lance: {0} {1}", my_match.GetTurn_num(), my_match.GetTurn());
+    }
+    public static void Minimax_Debug(){
+        var node1 = new Node();
+        var move_random = Minimax.Max(node1);
+        Console.WriteLine($"Move Random: {move_random}.");
+        node1._array.DisplayMatch();
+
+        var node2 = new Node();
+        node2._array.Define_Match([1,2,0,2,1,0,1,0,2]);
+        node2._array.DisplayMatch();
+        try
+        {
+            var move_mate_X = Minimax.Max(node2);
+        }
+        catch (ImpossibleMatchFoundException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        //Console.WriteLine($"Move: {move_mate_X}.");
     }
 }

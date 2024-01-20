@@ -2,6 +2,14 @@ using velha_master.Logic;
 
 namespace velha_master.Engine;
 
+public class ImpossibleMatchFoundException : Exception
+{
+    public ImpossibleMatchFoundException(string message, Node pos):base(message){
+        Console.WriteLine("ERRO");
+        pos._array.DisplayMatch();
+    }
+}
+
 public class Node
 {
     public int _val;
@@ -32,15 +40,13 @@ public static class Minimax
         if(Check_First_Move(pos)){
             var random = new Random();
             int rand_num = random.Next(0, 9);
-            pos.Define(0, rand_num);
+            pos.Define(0);
             return rand_num;
         }
 
         if(pos._array.Check_Winner() != (int) Statesenum.runningMatch){
             if(pos._array.Check_Winner() == (int) Statesenum.impossible){
-                Console.WriteLine("ERRO");
-                pos._array.DisplayMatch();
-                throw new Exception("Posição impossível identificada.");
+                throw new ImpossibleMatchFoundException("Posição impossível identificada.", pos);
             }
 
             pos.Define(Evaluate_Pos(pos));
@@ -63,7 +69,7 @@ public static class Minimax
         }
 
         int pos_max = Search_Max(children);
-        pos.Define(children[pos_max]._val, pos_max);
+        pos.Define(children[pos_max]._val);
 
         return children[pos_max]._lastmove;
     }
@@ -71,9 +77,7 @@ public static class Minimax
     public static int Min(Node pos){
         if(pos._array.Check_Winner() != (int) Statesenum.runningMatch){
             if(pos._array.Check_Winner() == (int) Statesenum.impossible){
-                Console.WriteLine("ERRO");
-                pos._array.DisplayMatch();
-                throw new Exception("Posição impossível identificada.");
+                throw new ImpossibleMatchFoundException("Posição impossível identificada.", pos);
             }
 
             pos.Define(Evaluate_Pos(pos));
@@ -96,7 +100,7 @@ public static class Minimax
         }
 
         int pos_min = Search_Min(children);
-        pos.Define(children[pos_min]._val, pos_min);
+        pos.Define(children[pos_min]._val);
 
         return children[pos_min]._lastmove;
     }

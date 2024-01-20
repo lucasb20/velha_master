@@ -14,7 +14,7 @@ class Program
         }
         if(args[0] == "test"){
             Tests.Tests.Test_All();
-            return 1;
+            return 0;
         }
 
         bool check = int.TryParse(args[0], out int choose);
