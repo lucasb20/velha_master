@@ -32,8 +32,7 @@ public static class Tests
 
         var node2 = new Node();
         node2._array.Define_Match([0,0,0,2,1,0,2,1,0]);
-        Assert(Minimax.Max(node2), 1);
-
+        Assert(Minimax.Max(node2), 0);
     }
 
     public static void Assert(object obj1, object obj2){

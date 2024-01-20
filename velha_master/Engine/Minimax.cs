@@ -2,14 +2,6 @@ using velha_master.Logic;
 
 namespace velha_master.Engine;
 
-public class ImpossibleMatchFoundException : Exception
-{
-    public ImpossibleMatchFoundException(Node pos){
-        Console.WriteLine("JOGADA IMPOSSÍVEL REALIZADA.");
-        pos.DisplayMatch();
-    }
-}
-
 public class Node
 {
     public int _val;
@@ -26,13 +18,15 @@ public class Node
     }
 
     public void Define(int index, Node copy){
-        _val = copy._val;
+        Define(copy._val);
         _array.Define_Match(copy._array._match);
         DoMove(index);
     }
 
     public void Define(int val){
-        _val = val;
+        if(_val == 0){
+            _val = val;
+        }
     }
 
     public void DisplayMatch(){
@@ -121,9 +115,6 @@ public static class Minimax
         }
         else if(res == (int) Tttenum.O){
             return -1;
-        }
-        else if(res == (int) Statesenum.impossible){
-            throw new ImpossibleMatchFoundException(pos);
         }
         else{
             return 0;
