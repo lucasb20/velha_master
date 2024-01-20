@@ -59,17 +59,46 @@ public static class Minimax
 
         foreach (var node in children)
         {
-            _ = Min(node);  
+            _ = Min(node);
         }
 
         int pos_max = Search_Max(children);
         pos.Define(children[pos_max]._val, pos_max);
 
-        return pos_max;
+        return children[pos_max]._lastmove;
     }
 
-    public static int Min(Node res){
-        return 0;
+    public static int Min(Node pos){
+        if(pos._array.Check_Winner() != (int) Statesenum.runningMatch){
+            if(pos._array.Check_Winner() == (int) Statesenum.impossible){
+                Console.WriteLine("ERRO");
+                pos._array.DisplayMatch();
+                throw new Exception("Posição impossível identificada.");
+            }
+
+            pos.Define(Evaluate_Pos(pos));
+            return -1;
+        }
+
+        var children = new List<Node>();
+
+        for(int i = 0; i < 9; i++){
+            if(pos._array._match[i] == (int) Tttenum.empty){
+                var node = new Node();
+                node.Define(0, i);
+                children.Add(node);
+            }
+        }
+
+        foreach (var node in children)
+        {
+            _ = Max(node);
+        }
+
+        int pos_min = Search_Min(children);
+        pos.Define(children[pos_min]._val, pos_min);
+
+        return children[pos_min]._lastmove;
     }
 
     private static bool Check_First_Move(Node pos){
@@ -102,6 +131,20 @@ public static class Minimax
         foreach(var node in array){
             if(node._val > max){
                 max = node._val;
+                pos = i;
+            }
+            i++;
+        }
+        return pos;
+    }
+
+    private static int Search_Min(List<Node> array){
+        int min = 2;
+        int i = 0;
+        int pos = -1;
+        foreach(var node in array){
+            if(node._val < min){
+                min = node._val;
                 pos = i;
             }
             i++;
