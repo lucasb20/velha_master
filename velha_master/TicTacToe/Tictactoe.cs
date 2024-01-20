@@ -7,6 +7,13 @@ public enum Tttenum
     O = 2
 }
 
+public enum Statesenum{
+    runningMatch = 0,
+    draw = -1,
+    impossible = -2
+}
+
+
 public class TicTacToe{
         public int _lance;
         public int[] _match;
@@ -19,13 +26,13 @@ public class TicTacToe{
             }
         }
 
-        public void DoMove(int casa){
+        public bool DoMove(int casa){
             if(_match[casa]==(int)Tttenum.empty){
                 _match[casa] = (int) ((_lance%2==0)?Tttenum.X:Tttenum.O);
                 _lance++;
-                return;
+                return true;
             }
-                throw new Exception("Casa já ocupada");
+                return false;
         }
 
         public void DisplayMatch(){
@@ -69,39 +76,39 @@ public class TicTacToe{
         }
 
         public static int Check_Winner(int[] partida){
-            int winner = 0;
+            int winner = (int) Tttenum.empty;
             int qtd_winner = 0;
             for(int i = 0; i < 7; i+=3){
-                if((partida[i] == partida[i+1]) && (partida[i+1] == partida[i+2]) && (partida[i] != 0)){
+                if((partida[i] == partida[i+1]) && (partida[i+1] == partida[i+2]) && (partida[i] != (int) Tttenum.empty)){
                     winner = partida[i];
                     qtd_winner++;
                 }
             }
             for(int i = 0; i < 3; i++){
-                if((partida[i] == partida[i+3]) && (partida[i+3] == partida[i+6]) && (partida[i] != 0)){
+                if((partida[i] == partida[i+3]) && (partida[i+3] == partida[i+6]) && (partida[i] != (int) Tttenum.empty)){
                     winner = partida[i];
                     qtd_winner++;
                 }
             }
-            if((partida[0] == partida[4]) && (partida[4] == partida[8]) && (partida[0] != 0)){
+            if((partida[0] == partida[4]) && (partida[4] == partida[8]) && (partida[0] != (int) Tttenum.empty)){
                     winner = partida[0];
                     qtd_winner++;
                 }
-            if((partida[2] == partida[4]) && (partida[4] == partida[6]) && (partida[2] != 0)){
+            if((partida[2] == partida[4]) && (partida[4] == partida[6]) && (partida[2] != (int) Tttenum.empty)){
                     winner = partida[2];
                     qtd_winner++;
                 }
 
-            if(qtd_winner > 1)return -2;
+            if(qtd_winner > 1)return (int) Statesenum.impossible;
 
-            if(winner != 0)return winner;
+            if(winner != (int) Tttenum.empty)return winner;
 
             bool draw = true;
-            for(int i = 0; i < 9; i++)if(partida[i]==0)draw=false;
+            for(int i = 0; i < 9; i++)if(partida[i]==(int) Tttenum.empty)draw=false;
 
-            if(draw)return -1;
+            if(draw)return (int) Statesenum.draw;
 
-            return 0;
+            return (int) Statesenum.runningMatch;
         }
 
         public int Check_Winner(){
