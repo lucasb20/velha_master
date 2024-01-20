@@ -7,29 +7,28 @@ public class Node
     public int _val;
     public TicTacToe _array;
 
+    public int _lastmove;
+
     public Node(){
         _val = 0;
+        _lastmove = -1;
         _array = new TicTacToe();
     }
 
     public void Define(int val, int index){
         _val = val;
         _array.DoMove(index);
+        _lastmove = index;
     }
 
     public void Define(int val){
         _val = val;
     }
-
-    public void Define(int val, TicTacToe pos){
-        _val = val;
-        _array.Define_Match(pos._match);
-    }
 }
 
 public static class Minimax
 {
-    public static int Max(ref Node pos){
+    public static int Max(Node pos){
         if(Check_First_Move(pos)){
             var random = new Random();
             int rand_num = random.Next(0, 9);
@@ -58,10 +57,18 @@ public static class Minimax
             }
         }
 
-        return -1;
+        foreach (var node in children)
+        {
+            _ = Min(node);  
+        }
+
+        int pos_max = Search_Max(children);
+        pos.Define(children[pos_max]._val, pos_max);
+
+        return pos_max;
     }
 
-    public static int Min(ref Node res){
+    public static int Min(Node res){
         return 0;
     }
 
@@ -86,5 +93,19 @@ public static class Minimax
         else{
             return 0;
         }
+    }
+
+    private static int Search_Max(List<Node> array){
+        int max = -2;
+        int i = 0;
+        int pos = -1;
+        foreach(var node in array){
+            if(node._val > max){
+                max = node._val;
+                pos = i;
+            }
+            i++;
+        }
+        return pos;
     }
 }
