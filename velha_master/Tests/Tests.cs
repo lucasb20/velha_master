@@ -33,6 +33,6 @@ public static class Tests
         node2._array.Define_Match([1,2,1,2,1,2,2,1,0]);
         node2.DisplayMatch();
         var move_mate_X = Minimax.Max(node2);
-        //Console.WriteLine($"Move: {move_mate_X}.");
+        Console.WriteLine($"Move: {move_mate_X}.");
     }
 }

@@ -25,6 +25,12 @@ public class Node
         _array.DoMove(index);
     }
 
+    public void Define(int index, Node copy){
+        _val = copy._val;
+        _array.Define_Match(copy._array._match);
+        _array.DoMove(index);
+    }
+
     public void Define(int val){
         _val = val;
     }
@@ -47,7 +53,7 @@ public static class Minimax
 
         if(pos._array.Check_Winner() != (int) Statesenum.runningMatch){
             pos.Define(Evaluate_Pos(pos));
-            throw new Exception("Max Terminal");
+            return -1;
         }
 
         var children = new List<Node>();
@@ -55,7 +61,7 @@ public static class Minimax
         for(int i = 0; i < 9; i++){
             if(pos._array._match[i] == (int) Tttenum.empty){
                 var node = new Node();
-                node.Define(0, i);
+                node.Define(i, pos);
                 children.Add(node);
             }
         }
@@ -74,7 +80,7 @@ public static class Minimax
     public static int Min(Node pos){
         if(pos._array.Check_Winner() != (int) Statesenum.runningMatch){
             pos.Define(Evaluate_Pos(pos));
-            throw new Exception("Min Terminal");
+            return -1;
         }
 
         var children = new List<Node>();
@@ -82,7 +88,7 @@ public static class Minimax
         for(int i = 0; i < 9; i++){
             if(pos._array._match[i] == (int) Tttenum.empty){
                 var node = new Node();
-                node.Define(0, i);
+                node.Define(i, pos);
                 children.Add(node);
             }
         }
