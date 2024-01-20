@@ -1,4 +1,5 @@
 ﻿using velha_master.HumanGame;
+using velha_master.MachineGame;
 using velha_master.Logic;
 
 namespace velha_master;
@@ -24,7 +25,8 @@ class Program
         var partida = new TicTacToe();
 
         if(choose == 0){
-            Game.Play_Human_Game(ref partida);
+            HumanGame.Game.Play_Human_Game(ref partida);
+            MachineGame.Game
         }
 
         return 0;
