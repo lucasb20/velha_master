@@ -4,9 +4,9 @@ namespace velha_master.Engine;
 
 public class ImpossibleMatchFoundException : Exception
 {
-    public ImpossibleMatchFoundException(string message, Node pos):base(message){
+    public ImpossibleMatchFoundException(Node pos){
         Console.WriteLine("ERRO");
-        pos._array.DisplayMatch();
+        pos.DisplayMatch();
     }
 }
 
@@ -15,22 +15,23 @@ public class Node
     public int _val;
     public TicTacToe _array;
 
-    public int _lastmove;
-
     public Node(){
         _val = 0;
-        _lastmove = -1;
         _array = new TicTacToe();
     }
 
     public void Define(int val, int index){
         _val = val;
         _array.DoMove(index);
-        _lastmove = index;
     }
 
     public void Define(int val){
         _val = val;
+    }
+
+    public void DisplayMatch(){
+        Console.WriteLine($"val = {_val}");
+        _array.DisplayMatch();
     }
 }
 
@@ -45,12 +46,8 @@ public static class Minimax
         }
 
         if(pos._array.Check_Winner() != (int) Statesenum.runningMatch){
-            if(pos._array.Check_Winner() == (int) Statesenum.impossible){
-                throw new ImpossibleMatchFoundException("Posição impossível identificada.", pos);
-            }
-
             pos.Define(Evaluate_Pos(pos));
-            return -1;
+            throw new Exception("Max Terminal");
         }
 
         var children = new List<Node>();
@@ -71,17 +68,13 @@ public static class Minimax
         int pos_max = Search_Max(children);
         pos.Define(children[pos_max]._val);
 
-        return children[pos_max]._lastmove;
+        return FindDiffMove(pos, children[pos_max]);
     }
 
     public static int Min(Node pos){
         if(pos._array.Check_Winner() != (int) Statesenum.runningMatch){
-            if(pos._array.Check_Winner() == (int) Statesenum.impossible){
-                throw new ImpossibleMatchFoundException("Posição impossível identificada.", pos);
-            }
-
             pos.Define(Evaluate_Pos(pos));
-            return -1;
+            throw new Exception("Min Terminal");
         }
 
         var children = new List<Node>();
@@ -102,7 +95,7 @@ public static class Minimax
         int pos_min = Search_Min(children);
         pos.Define(children[pos_min]._val);
 
-        return children[pos_min]._lastmove;
+        return FindDiffMove(pos, children[pos_min]);
     }
 
     private static bool Check_First_Move(Node pos){
@@ -122,6 +115,9 @@ public static class Minimax
         }
         else if(res == (int) Tttenum.O){
             return -1;
+        }
+        else if(res == (int) Statesenum.impossible){
+            throw new ImpossibleMatchFoundException(pos);
         }
         else{
             return 0;
@@ -154,5 +150,14 @@ public static class Minimax
             i++;
         }
         return pos;
+    }
+
+    private static int FindDiffMove(Node a, Node b){
+        for(int i = 0; i < 9; i++){
+            if(a._array._match[i] != b._array._match[i]){
+                return i;
+            }
+        }
+        return -1;
     }
 }

@@ -28,19 +28,11 @@ public static class Tests
         var node1 = new Node();
         var move_random = Minimax.Max(node1);
         Console.WriteLine($"Move Random: {move_random}.");
-        node1._array.DisplayMatch();
 
         var node2 = new Node();
-        node2._array.Define_Match([1,2,0,2,1,0,1,0,2]);
-        node2._array.DisplayMatch();
-        try
-        {
-            var move_mate_X = Minimax.Max(node2);
-        }
-        catch (ImpossibleMatchFoundException e)
-        {
-            Console.WriteLine(e.Message);
-        }
+        node2._array.Define_Match([1,2,1,2,1,2,2,1,0]);
+        node2.DisplayMatch();
+        var move_mate_X = Minimax.Max(node2);
         //Console.WriteLine($"Move: {move_mate_X}.");
     }
 }
