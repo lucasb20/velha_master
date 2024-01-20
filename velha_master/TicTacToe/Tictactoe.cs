@@ -15,11 +15,9 @@ public enum Statesenum{
 
 
 public class TicTacToe{
-        public int _lance;
         public int[] _match;
     
         public TicTacToe(){
-            _lance = 0;
             _match = new int[9];
             for(int i = 0; i < 9; i++){
                 _match[i] =  (int)Tttenum.empty;
@@ -28,8 +26,7 @@ public class TicTacToe{
 
         public bool DoMove(int casa){
             if(_match[casa]==(int)Tttenum.empty){
-                _match[casa] = (int) ((_lance%2==0)?Tttenum.X:Tttenum.O);
-                _lance++;
+                _match[casa] = GetTurn_num();
                 return true;
             }
                 return false;
@@ -62,11 +59,15 @@ public class TicTacToe{
         }
 
         public char GetTurn(){
-            return _lance%2==0?'X':'O';
+            return GetTurn_num()%2==(int)Tttenum.X?'X':'O';
         }
 
         public int GetTurn_num(){
-            return (int)(_lance%2==0?Tttenum.X:Tttenum.O);
+            int count = 0;
+            for(int i = 0; i < 9; i++){
+                if(_match[i] != (int) Tttenum.empty)count++;
+            }
+            return (int)(count%2==0?Tttenum.X:Tttenum.O);
         }
 
         public void Define_Match(int[] array){

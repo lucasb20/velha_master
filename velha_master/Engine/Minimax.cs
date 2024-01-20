@@ -5,7 +5,7 @@ namespace velha_master.Engine;
 public class ImpossibleMatchFoundException : Exception
 {
     public ImpossibleMatchFoundException(Node pos){
-        Console.WriteLine("ERRO");
+        Console.WriteLine("JOGADA IMPOSSÍVEL REALIZADA.");
         pos.DisplayMatch();
     }
 }
@@ -22,13 +22,13 @@ public class Node
 
     public void Define(int val, int index){
         _val = val;
-        _array.DoMove(index);
+        DoMove(index);
     }
 
     public void Define(int index, Node copy){
         _val = copy._val;
         _array.Define_Match(copy._array._match);
-        _array.DoMove(index);
+        DoMove(index);
     }
 
     public void Define(int val){
@@ -36,8 +36,15 @@ public class Node
     }
 
     public void DisplayMatch(){
-        Console.WriteLine($"val = {_val}");
+        Console.WriteLine("val = {0} Eval_Pos = {1}", _val, Minimax.Evaluate_Pos(this));
         _array.DisplayMatch();
+    }
+
+    public void DoMove(int casa){
+        bool check = _array.DoMove(casa);
+        if(!check){
+            throw new Exception("Unexpected Move.");
+        }
     }
 }
 
@@ -47,7 +54,6 @@ public static class Minimax
         if(Check_First_Move(pos)){
             var random = new Random();
             int rand_num = random.Next(0, 9);
-            pos.Define(0);
             return rand_num;
         }
 
@@ -114,7 +120,7 @@ public static class Minimax
         return true;
     }
 
-    private static int Evaluate_Pos(Node pos){
+    public static int Evaluate_Pos(Node pos){
         int res = pos._array.Check_Winner();
         if(res == (int) Tttenum.X){
             return 1;

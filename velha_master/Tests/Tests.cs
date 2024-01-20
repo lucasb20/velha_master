@@ -19,20 +19,32 @@ public static class Tests
         }
         catch (Exception)
         {
-            Console.WriteLine("Tudo certo por aqui.");
+            Assert(true);
         }
-        my_match.DisplayMatch();
-        Console.WriteLine("Lance: {0} {1}", my_match.GetTurn_num(), my_match.GetTurn());
+        Assert(my_match.GetTurn_num() == 1);
     }
     public static void Minimax_Debug(){
-        var node1 = new Node();
-        var move_random = Minimax.Max(node1);
-        Console.WriteLine($"Move Random: {move_random}.");
+        _ = Minimax.Max(new Node());
+
+        /*var node1 = new Node();
+        node1._array.Define_Match([1,2,1,2,1,2,2,1,0]);
+        Assert(Minimax.Max(node1) == 8);*/
 
         var node2 = new Node();
-        node2._array.Define_Match([1,2,1,2,1,2,2,1,0]);
-        node2.DisplayMatch();
-        var move_mate_X = Minimax.Max(node2);
-        Console.WriteLine($"Move: {move_mate_X}.");
+        node2._array.Define_Match([0,0,0,2,1,0,2,1,0]);
+        try{
+            Assert(Minimax.Max(node2) == 1);
+        }catch(ImpossibleMatchFoundException e){
+            Console.WriteLine(e.Message);
+        }
+    }
+
+    public static void Assert(bool teste){
+        if(!teste){
+            Console.WriteLine("Invalid Assert.");
+        }
+        else{
+            Console.WriteLine("Correct Assert.");
+        }
     }
 }

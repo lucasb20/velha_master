@@ -6,7 +6,6 @@ public static class Game
 {
     public static void Play_Human_Game(ref TicTacToe partida){
         char turn;
-        int i, j;
         int move;
 
         while(partida.Check_Winner()==(int) Statesenum.runningMatch){
@@ -15,9 +14,9 @@ public static class Game
             Console.WriteLine($"Vez do {turn}");
             do{
                 Console.WriteLine("Digite o número da linha.");
-                _ = int.TryParse(Console.ReadLine(), out i);
+                _ = int.TryParse(Console.ReadLine(), out int i);
                 Console.WriteLine("Digite o número da coluna.");
-                _ = int.TryParse(Console.ReadLine(), out j);
+                _ = int.TryParse(Console.ReadLine(), out int j);
                 move = (i-1)*3+(j-1);
             }while(!partida.DoMove(move));
         }
