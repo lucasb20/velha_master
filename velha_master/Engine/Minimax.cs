@@ -98,6 +98,20 @@ public static class Minimax
         return best_move;
     }
 
+    public static int Machine_Move(TicTacToe pos){
+        var partida = new Node();
+        partida._array.Define_Match(pos._match);
+
+        int option = pos.GetTurn_num();
+
+        if(option == (int) Tttenum.X){
+            return Max(partida);
+        }
+        else{
+            return Min(partida);
+        }
+    }
+
     private static bool Check_First_Move(Node pos){
         foreach(var num in pos._array._match){
             if(num != (int) Tttenum.empty){

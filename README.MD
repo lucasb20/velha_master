@@ -4,6 +4,14 @@
 
  Esse é um projeto de Jogo da Velha feito em C# com .NET. É possível fazer partidas normais entre pessoas, mas o foco é a interação com a engine chamada de Velha Master.
 
+**Observações**
+
+ Foi realizado um refactory de linguagem (C++ para C#) e de código de algoritmos.
+
+ A interface foi removida porque SDL2 sozinho é um recurso fraco.
+
+ O refactory do código teve como principal objetivo resolver o problema do código do Minimax absurdamente amarrado e de difícil manutenção.
+
 **Recursos**
 
 * Partida normal entre dois humanos

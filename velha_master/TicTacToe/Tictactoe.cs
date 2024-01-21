@@ -75,37 +75,30 @@ public class TicTacToe{
             }
         }
 
-        public static int Check_Winner(int[] partida){
-            int winner = (int) Tttenum.empty;
+        public int Check_Winner(){
             for(int i = 0; i < 7; i+=3){
-                if((partida[i] == partida[i+1]) && (partida[i+1] == partida[i+2]) && (partida[i] != (int) Tttenum.empty)){
-                    winner = partida[i];
+                if((_match[i] == _match[i+1]) && (_match[i+1] == _match[i+2]) && (_match[i] != (int) Tttenum.empty)){
+                    return _match[i];
                 }
             }
             for(int i = 0; i < 3; i++){
-                if((partida[i] == partida[i+3]) && (partida[i+3] == partida[i+6]) && (partida[i] != (int) Tttenum.empty)){
-                    winner = partida[i];
+                if((_match[i] == _match[i+3]) && (_match[i+3] == _match[i+6]) && (_match[i] != (int) Tttenum.empty)){
+                    return _match[i];
                 }
             }
-            if((partida[0] == partida[4]) && (partida[4] == partida[8]) && (partida[0] != (int) Tttenum.empty)){
-                    winner = partida[0];
+            if((_match[0] == _match[4]) && (_match[4] == _match[8]) && (_match[0] != (int) Tttenum.empty)){
+                    return _match[0];
                 }
-            if((partida[2] == partida[4]) && (partida[4] == partida[6]) && (partida[2] != (int) Tttenum.empty)){
-                    winner = partida[2];
+            if((_match[2] == _match[4]) && (_match[4] == _match[6]) && (_match[2] != (int) Tttenum.empty)){
+                    return _match[2];
                 }
 
+            for(int i = 0; i < 9; i++){
+                if(_match[i]==(int) Tttenum.empty){
+                    return (int) Statesenum.runningMatch;
+                }
+            }
 
-            if(winner != (int) Tttenum.empty)return winner;
-
-            bool draw = true;
-            for(int i = 0; i < 9; i++)if(partida[i]==(int) Tttenum.empty)draw=false;
-
-            if(draw)return (int) Statesenum.draw;
-
-            return (int) Statesenum.runningMatch;
-        }
-
-        public int Check_Winner(){
-            return Check_Winner(_match);
+            return (int) Statesenum.draw;
         }
 };

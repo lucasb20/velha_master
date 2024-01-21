@@ -4,7 +4,7 @@ namespace velha_master.HumanGame;
 
 public static class Game
 {
-    public static void Play_Human_Game(ref TicTacToe partida){
+    public static void Play_Human_Game(TicTacToe partida){
         char turn;
         int move;
 

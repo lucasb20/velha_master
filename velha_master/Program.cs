@@ -9,8 +9,11 @@ class Program
     public static int Main(string[] args)
     {
         if(args.Length != 1){
-            Console.WriteLine("Coloque o modo por argumento. Formato: dotnet run <op>");
+            Console.WriteLine("Coloque o modo por argumento. Ex: dotnet run <op>");
             Console.WriteLine("0 -> Player vs Player");
+            Console.WriteLine("1 -> Player vs Engine");
+            Console.WriteLine("1 -> Engine vs Player");
+            Console.WriteLine("1 -> Engine vs Engine");
             return 0;
         }
         if(args[0] == "test"){
@@ -25,8 +28,9 @@ class Program
         var partida = new TicTacToe();
 
         if(choose == 0){
-            HumanGame.Game.Play_Human_Game(ref partida);
-            MachineGame.Game
+            HumanGame.Game.Play_Human_Game(partida);
+        }else{
+            MachineGame.Game.Play_vs_Engine(partida, choose);
         }
 
         return 0;
