@@ -12,8 +12,8 @@ class Program
             Console.WriteLine("Coloque o modo por argumento. Ex: dotnet run <op>");
             Console.WriteLine("0 -> Player vs Player");
             Console.WriteLine("1 -> Player vs Engine");
-            Console.WriteLine("1 -> Engine vs Player");
-            Console.WriteLine("1 -> Engine vs Engine");
+            Console.WriteLine("2 -> Engine vs Player");
+            Console.WriteLine("3 -> Engine vs Engine");
             return 0;
         }
         if(args[0] == "test"){
