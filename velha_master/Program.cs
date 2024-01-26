@@ -13,6 +13,8 @@ class Program
             Console.WriteLine("1 -> Player vs Engine");
             Console.WriteLine("2 -> Engine vs Player");
             Console.WriteLine("3 -> Engine vs Engine");
+            Console.WriteLine("4 -> Capivara vs Engine");
+            Console.WriteLine("5 -> Engine vs Capivara");
             return 0;
         }
         if(args[0] == "test"){
