@@ -1,9 +1,9 @@
 using velha_master.Engine;
 using velha_master.Logic;
 
-namespace velha_master.MachineGame;
+namespace velha_master.GameCreate;
 
-public static class Game
+public static class EngineGame
 {
     public static void Play_vs_Engine(TicTacToe partida, int option){
         if(option == 1){

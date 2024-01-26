@@ -1,5 +1,4 @@
-﻿using velha_master.HumanGame;
-using velha_master.MachineGame;
+﻿using velha_master.GameCreate;
 using velha_master.Logic;
 
 namespace velha_master;
@@ -28,9 +27,9 @@ class Program
         var partida = new TicTacToe();
 
         if(choose == 0){
-            HumanGame.Game.Play_Human_Game(partida);
+            HumanGame.Play_Human_Game(partida);
         }else{
-            MachineGame.Game.Play_vs_Engine(partida, choose);
+            EngineGame.Play_vs_Engine(partida, choose);
         }
 
         return 0;

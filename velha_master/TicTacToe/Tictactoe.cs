@@ -55,6 +55,8 @@ public class TicTacToe{
 
                 i++;
             }
+
+            Console.Write("\n");
         }
 
         public char GetTurn(){

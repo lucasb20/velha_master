@@ -1,8 +1,8 @@
 using velha_master.Logic;
 
-namespace velha_master.HumanGame;
+namespace velha_master.GameCreate;
 
-public static class Game
+public static class HumanGame
 {
     public static void Play_Human_Game(TicTacToe partida){
         char turn;

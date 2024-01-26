@@ -2,16 +2,8 @@
 
 **Descrição**
 
- Esse é um projeto de Jogo da Velha feito em C# com .NET. É possível fazer partidas normais entre pessoas, mas o foco é a interação com a engine chamada de Velha Master.
-
-**Observações**
-
- Foi realizado um refactory de linguagem (C++ para C#) e de código de algoritmos.
-
- A interface foi removida porque SDL2 sozinho é um recurso fraco.
-
- O refactory do código teve como principal objetivo resolver o problema do código do Minimax absurdamente amarrado e de difícil manutenção.
-
+ Esse é um projeto de Jogo da Velha feito em C# com .NET. É possível fazer partidas normais entre pessoas, mas o foco é a interação com I.A's.
+ 
 **Recursos**
 
 * Partida normal entre dois humanos
@@ -20,7 +12,11 @@
 
 **Objetivos**
 
-O objetivo do projeto é possibilitar uma interação com o algoritmo de busca competitiva, famoso Minimax. É uma I.A que busca as soluções das posições na força bruta.
+O objetivo do projeto é utilizar diferentes algoritmos de I.A para aplicar nesse jogo simples de tabuleiro.
+
+Algoritmo Competitivo: Também conhecido como Minimax, funciona a base de força bruta, testando cada possibilidade até um estado terminal e retornando o melhor lance.
+
+Algoritmo Capivara: Um jogador muito lerdo que joga lances imprecisos. Obs: Referência de Xadrez.
 
 **Instruções de instalação**
 
