@@ -14,9 +14,13 @@
 
 O objetivo do projeto é utilizar diferentes algoritmos de I.A para aplicar nesse jogo simples de tabuleiro.
 
+**Algoritmos**
+
 Algoritmo Competitivo: Também conhecido como Minimax, funciona a base de força bruta, testando cada possibilidade até um estado terminal e retornando o melhor lance.
 
 Algoritmo Capivara: Um jogador muito lerdo que joga lances imprecisos. Obs: Referência de Xadrez.
+
+Algoritmo ANN: Uma Rede Neural Artificial que treinou com ajuda de mais de 300 mil dados, fornecido pelo Minimax. *Ainda em desenvolvimento*
 
 **Instruções de instalação**
 
