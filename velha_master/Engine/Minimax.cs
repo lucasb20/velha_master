@@ -12,33 +12,13 @@ public class Node
         _array = new TicTacToe();
     }
 
-    public void Define(int val, int index){
-        _val = val;
-        DoMove(index);
-    }
-
     public void Define(int index, Node copy){
-        Define(copy._val);
         _array.Define_Match(copy._array._match);
-        DoMove(index);
+        _array.DoMove(index);
     }
 
     public void Define(int val){
-        if(_val == 0){
-            _val = val;
-        }
-    }
-
-    public void DisplayMatch(){
-        Console.WriteLine("val = {0}", _val);
-        _array.DisplayMatch();
-    }
-
-    public void DoMove(int casa){
-        bool check = _array.DoMove(casa);
-        if(!check){
-            throw new Exception("Unexpected Move.");
-        }
+        _val = val;
     }
 }
 
@@ -102,9 +82,7 @@ public static class Minimax
         var partida = new Node();
         partida._array.Define_Match(pos._match);
 
-        int option = pos.GetTurn_num();
-
-        if(option == (int) Tttenum.X){
+        if(pos.GetTurn_num() == (int) Tttenum.X){
             return Max(partida);
         }
         else{

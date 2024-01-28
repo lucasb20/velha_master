@@ -8,7 +8,7 @@ class Program
     public static int Main(string[] args)
     {
         if(args.Length != 1){
-            Console.WriteLine("Coloque o modo por argumento. Ex: dotnet run <op>");
+            Console.WriteLine("Coloque o modo por argumento.");
             Console.WriteLine("0 -> Player vs Player");
             Console.WriteLine("1 -> Player vs Engine");
             Console.WriteLine("2 -> Engine vs Player");
