@@ -21,6 +21,10 @@ class Program
             Tests.Tests.Test_All();
             return 0;
         }
+        if(args[0] == "ann"){
+            Tests.Tests.ANN();
+            return 0;
+        }
 
         bool check = int.TryParse(args[0], out int choose);
 
