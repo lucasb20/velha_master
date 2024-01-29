@@ -80,6 +80,26 @@ public static class Tests
         }
     }
 
+    public static void ANN2(){
+        var func = new BipolarSigmoidFunction();
+
+        var network = new ActivationNetwork(func, 9, 15, 1);
+        network.Randomize();
+
+        var teacher = new BackPropagationLearning(network) { LearningRate = 0.01 };
+
+
+        Node.Load("minimax.stackdump", out double[][] train_x, out double[][] train_y);
+
+        for (int i = 0; i < 2; i++)
+        {
+            teacher.RunEpoch(train_x, train_y);
+            Console.WriteLine($"Epoch {i}");
+        }
+
+        network.Save("minimax.ann");
+    }
+
     public static void Assert(object obj1, object obj2){
         if(obj1.ToString() == obj2.ToString()){
             Console.WriteLine("Correct Assert.");
