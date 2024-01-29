@@ -4,7 +4,7 @@ namespace velha_master.Engine;
 
 public static class Minimax
 {
-    public static int Max(Node pos){
+    public static int Minimax_Tree(Node pos, bool Maximize){
         if(Check_First_Move(pos)){
             var random = new Random();
             int rand_num = random.Next(0, 9);
@@ -16,45 +16,29 @@ public static class Minimax
             return -1;
         }
 
-        int val_max = -2;
+        int best_val = Maximize?-2:2;
         int best_move = -1;
         for(int i = 0; i < 9; i++){
             if(pos._array._match[i] == (int) Tttenum.empty){
                 var node = new Node();
                 node.Define(i, pos);
-                _ = Min(node);
-                if(node._val > val_max){
-                    val_max = node._val;
-                    best_move = i;
+                Minimax_Tree(node, !Maximize);
+                if(Maximize){
+                    if(node._val > best_val){
+                        best_val = node._val;
+                        best_move = i;
+                    }
+                }
+                else{
+                    if(node._val < best_val){
+                        best_val = node._val;
+                        best_move = i;
+                    }
                 }
             }
         }
 
-        pos.Define(val_max);
-        return best_move;
-    }
-
-    public static int Min(Node pos){
-        if(pos._array.Check_Winner() != (int) Statesenum.runningMatch){
-            pos.Define(Evaluate_Pos(pos));
-            return -1;
-        }
-
-        int val_min = 2;
-        int best_move = -1;
-        for(int i = 0; i < 9; i++){
-            if(pos._array._match[i] == (int) Tttenum.empty){
-                var node = new Node();
-                node.Define(i, pos);
-                _ = Max(node);
-                if(node._val < val_min){
-                    val_min = node._val;
-                    best_move = i;
-                }
-            }
-        }
-
-        pos.Define(val_min);
+        pos.Define(best_val);
         return best_move;
     }
 
@@ -62,22 +46,7 @@ public static class Minimax
         var partida = new Node();
         partida._array.Define_Match(pos._match);
 
-        if(pos.GetTurn_num() == (int) Tttenum.X){
-            return Max(partida);
-        }
-        else{
-            return Min(partida);
-        }
-    }
-
-    private static bool Check_First_Move(Node pos){
-        foreach(var num in pos._array._match){
-            if(num != (int) Tttenum.empty){
-                return false;
-            }
-        }
-
-        return true;
+        return Minimax_Tree(partida, pos.GetTurn_num() == (int) Tttenum.X);
     }
 
     public static int Evaluate_Pos(Node pos){
@@ -91,5 +60,15 @@ public static class Minimax
         else{
             return 0;
         }
+    }
+
+    private static bool Check_First_Move(Node pos){
+        foreach(var num in pos._array._match){
+            if(num != (int) Tttenum.empty){
+                return false;
+            }
+        }
+
+        return true;
     }
 }

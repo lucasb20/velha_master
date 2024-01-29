@@ -1,4 +1,4 @@
-
+namespace velha_master.Engine;
 using velha_master.Logic;
 
 public class Node

@@ -26,15 +26,16 @@ public static class Tests
         Assert(my_match.GetTurn_num(), 1);
     }
     public static void Minimax_Debug(){
-        _ = Minimax.Max(new Node());
+        var match = new TicTacToe();
+        _ = Minimax.Machine_Move(match);
 
-        var node1 = new Node();
-        node1._array.Define_Match([1,2,1,2,1,2,2,1,0]);
-        Assert(Minimax.Max(node1), 8);
+        var match1 = new TicTacToe();
+        match1.Define_Match([1,2,1,2,1,2,2,1,0]);
+        Assert(Minimax.Machine_Move(match1), 8);
 
-        var node2 = new Node();
-        node2._array.Define_Match([0,0,0,2,1,0,2,1,0]);
-        Assert(Minimax.Max(node2), 0);
+        var match2 = new TicTacToe();
+        match2.Define_Match([0,0,0,2,1,0,2,1,0]);
+        Assert(Minimax.Machine_Move(match2), 0);
     }
 
     public static void ANN(){

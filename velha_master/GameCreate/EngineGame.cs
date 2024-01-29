@@ -9,12 +9,12 @@ public static class EngineGame
         if(option == 1){
             while(true){
                 Console.WriteLine("Vez do {0}.", partida.GetTurn());
+                partida.DisplayMatch();
                 _ = int.TryParse(Console.ReadLine(), out int move);
                 partida.DoMove(move);
-                partida.DisplayMatch();
                 if(partida.Check_Winner() != (int) Statesenum.runningMatch)break;
-                partida.DoMove(Minimax.Machine_Move(partida));
                 partida.DisplayMatch();
+                partida.DoMove(Minimax.Machine_Move(partida));
                 if(partida.Check_Winner() != (int) Statesenum.runningMatch)break;
             }
         }
@@ -33,11 +33,9 @@ public static class EngineGame
         else if(option == 3){
             while(true){
                 partida.DoMove(Minimax.Machine_Move(partida));
-                Console.WriteLine("Vez do X.");
                 partida.DisplayMatch();
                 if(partida.Check_Winner() != (int) Statesenum.runningMatch)break;
                 partida.DoMove(Minimax.Machine_Move(partida));
-                Console.WriteLine("Vez do O.");
                 partida.DisplayMatch();
                 if(partida.Check_Winner() != (int) Statesenum.runningMatch)break;
             }
@@ -45,11 +43,9 @@ public static class EngineGame
         else if(option == 4){
             while(true){
                 partida.DoMove(Capivara.Machine_Move(partida));
-                Console.WriteLine("Vez do X.");
                 partida.DisplayMatch();
                 if(partida.Check_Winner() != (int) Statesenum.runningMatch)break;
                 partida.DoMove(Minimax.Machine_Move(partida));
-                Console.WriteLine("Vez do O.");
                 partida.DisplayMatch();
                 if(partida.Check_Winner() != (int) Statesenum.runningMatch)break;
             }
@@ -57,11 +53,9 @@ public static class EngineGame
         else if(option == 5){
             while(true){
                 partida.DoMove(Minimax.Machine_Move(partida));
-                Console.WriteLine("Vez do X.");
                 partida.DisplayMatch();
                 if(partida.Check_Winner() != (int) Statesenum.runningMatch)break;
                 partida.DoMove(Capivara.Machine_Move(partida));
-                Console.WriteLine("Vez do O.");
                 partida.DisplayMatch();
                 if(partida.Check_Winner() != (int) Statesenum.runningMatch)break;
             }
@@ -69,7 +63,8 @@ public static class EngineGame
         else{
             Console.WriteLine("Opção inválida.");
         }
-
+        
+        partida.DisplayMatch();
         if(partida.Check_Winner() == (int) Statesenum.draw){
             Console.WriteLine("Draw.");
         }
