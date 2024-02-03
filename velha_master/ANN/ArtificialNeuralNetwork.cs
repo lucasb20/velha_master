@@ -2,6 +2,7 @@ namespace velha_master.Engine;
 
 using Accord.Neuro;
 using Accord.Neuro.Learning;
+using velha_master.ANN;
 
 public class ArtificialNeuralNetwork{
     private ActivationNetwork _network;
@@ -27,6 +28,6 @@ public class ArtificialNeuralNetwork{
             i++;
         }
 
-        _network.Save("Model.stackdump");
+        StorageNetwork.SaveNetwork(_network);
     }
 }
