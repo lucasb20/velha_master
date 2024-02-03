@@ -88,15 +88,6 @@ public static class Tests
 
         var teacher = new BackPropagationLearning(network) { LearningRate = 0.01 };
 
-
-        Node.Load("minimax.stackdump", out double[][] train_x, out double[][] train_y);
-
-        for (int i = 0; i < 2; i++)
-        {
-            teacher.RunEpoch(train_x, train_y);
-            Console.WriteLine($"Epoch {i}");
-        }
-
         network.Save("minimax.ann");
     }
 

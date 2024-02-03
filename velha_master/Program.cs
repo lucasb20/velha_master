@@ -25,6 +25,10 @@ class Program
             Tests.Tests.ANN();
             return 0;
         }
+        if(args[0] == "ann2"){
+            Tests.Tests.ANN2();
+            return 0;
+        }
 
         bool check = int.TryParse(args[0], out int choose);
 
