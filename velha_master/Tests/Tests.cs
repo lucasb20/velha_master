@@ -1,7 +1,5 @@
 using velha_master.Engine;
 using velha_master.Logic;
-using Accord.Neuro;
-using Accord.Neuro.Learning;
 
 namespace velha_master.Tests;
 
@@ -25,6 +23,7 @@ public static class Tests
         }
         Assert(my_match.GetTurn_num(), 1);
     }
+
     public static void Minimax_Debug(){
         var match = new TicTacToe();
         _ = Minimax.Machine_Move(match);
@@ -39,56 +38,7 @@ public static class Tests
     }
 
     public static void ANN(){
-        var func = new BipolarSigmoidFunction();
-
-        var network = new ActivationNetwork(func, 2, 15, 1);
-        network.Randomize();
-
-        var teacher = new BackPropagationLearning(network) { LearningRate = 0.01 };
-
-        var train_x = new double[][]{
-                [0, 0],
-                [0, 1],
-                [1, 0],
-                [1, 1]
-        };
-
-        var train_y = new double[][]{
-                [0],
-                [1],
-                [1],
-                [0]
-        };
-
-        for (int i = 0; i < 1000000; i++)
-        {
-            teacher.RunEpoch(train_x, train_y);
-            Console.WriteLine($"Epoch {i}");
-        }
-
-        var output = new List<double[]>();
-
-        foreach(var input in train_x){
-            output.Add(network.Compute(input));
-        }
-
-
-        foreach(var item in output){
-            foreach(var value in item){
-                Console.WriteLine($"{value} ");
-            }
-        }
-    }
-
-    public static void ANN2(){
-        var func = new BipolarSigmoidFunction();
-
-        var network = new ActivationNetwork(func, 9, 15, 1);
-        network.Randomize();
-
-        var teacher = new BackPropagationLearning(network) { LearningRate = 0.01 };
-
-        network.Save("minimax.ann");
+        return;
     }
 
     public static void Assert(object obj1, object obj2){
