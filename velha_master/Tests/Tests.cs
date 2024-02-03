@@ -38,6 +38,10 @@ public static class Tests
     }
 
     public static void ANN(){
+        var list = new List<Node>();
+        PosIterator.Minimax_Tree(new Node(), true, list);
+        var ann = new ArtificialNeuralNetwork();
+        ann.Training(list);
         return;
     }
 

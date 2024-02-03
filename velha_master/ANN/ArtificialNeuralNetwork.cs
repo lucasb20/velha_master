@@ -3,19 +3,30 @@ namespace velha_master.Engine;
 using Accord.Neuro;
 using Accord.Neuro.Learning;
 
-public static class ArtificialNeuralNetwork{
-    public static int Machine_Move(){
-        return 0;
+public class ArtificialNeuralNetwork{
+    private ActivationNetwork _network;
+    
+    public ArtificialNeuralNetwork(){
+        _network = new ActivationNetwork(new BipolarSigmoidFunction(), 9, 15, 1);
+        _network.Randomize();
     }
 
-    public static void Training(){
-        var func = new BipolarSigmoidFunction();
+    public int Machine_Move(){
+        return -1;
+    }
 
-        var network = new ActivationNetwork(func, 9, 15, 1);
-        network.Randomize();
+    public void Training(List<Node> dataset){
+        var teacher = new BackPropagationLearning(_network) { LearningRate = 0.01 };
 
-        var teacher = new BackPropagationLearning(network) { LearningRate = 0.01 };
+        int i = 0;
+        foreach (var node in dataset){
+            var input = new double[] { node._array._match[0], node._array._match[1], node._array._match[2], node._array._match[3], node._array._match[4], node._array._match[5], node._array._match[6], node._array._match[7], node._array._match[8] };
+            var output = new double[] { node._val };
+            teacher.Run(input, output);
+            Console.WriteLine($"partida {i}/{dataset.Count}");
+            i++;
+        }
 
-        network.Save("minimax.ann");
+        _network.Save("Model.stackdump");
     }
 }

@@ -4,9 +4,10 @@ namespace velha_master.Engine;
 
 public static class PosIterator
 {
-    public static int Minimax_Tree(Node pos, bool Maximize){
+    public static int Minimax_Tree(Node pos, bool Maximize, List<Node> matchs){
         if(pos._array.Check_Winner() != (int) Statesenum.runningMatch){
             pos.Define(Minimax.Evaluate_Pos(pos));
+            matchs.Add(pos);
             return -1;
         }
 
@@ -16,7 +17,7 @@ public static class PosIterator
             if(pos._array._match[i] == (int) Tttenum.empty){
                 var node = new Node();
                 node.Define(i, pos);
-                Minimax_Tree(node, !Maximize);
+                Minimax_Tree(node, !Maximize, matchs);
                 if(Maximize){
                     if(node._val > best_val){
                         best_val = node._val;
@@ -33,6 +34,7 @@ public static class PosIterator
         }
 
         pos.Define(best_val);
+        matchs.Add(pos);
         return best_move;
     }
 }
