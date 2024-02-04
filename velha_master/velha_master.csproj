@@ -7,9 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Accord.Neuro" Version="3.8.2-alpha" />
-    <PackageReference Include="Accord.Statistics" Version="3.8.2-alpha" />
-  </ItemGroup>
-
 </Project>
