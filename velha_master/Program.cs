@@ -33,7 +33,7 @@ class Program
         var partida = new TicTacToe();
 
         if(choose == 0){
-            HumanGame.Play_Human_Game(partida);
+            PlayGame.Play_Match(new HumanPlayer(), new HumanPlayer());
         }else{
             EngineGame.Play_vs_Engine(partida, choose);
         }
