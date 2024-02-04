@@ -20,8 +20,6 @@ Algoritmo Competitivo: Também conhecido como Minimax, funciona a base de força
 
 Algoritmo Capivara: Um jogador muito lerdo que joga lances imprecisos. Obs: Referência de Xadrez.
 
-Algoritmo ANN: Uma Rede Neural Artificial que treinou com ajuda de mais de 500 mil dados, fornecido pelo Minimax. *Ainda em desenvolvimento*
-
 **Instruções de instalação**
 
 **Requisitos de sistema**
@@ -36,4 +34,4 @@ Algoritmo ANN: Uma Rede Neural Artificial que treinou com ajuda de mais de 500 m
 
 **Screenshots**
 
-![Exemplo de partida no terminal](other/Screenshot1.png)
+![Exemplo de partida no terminal](other/Screenshot3.png)

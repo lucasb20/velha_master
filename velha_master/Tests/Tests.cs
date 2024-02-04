@@ -36,15 +36,7 @@ public static class Tests
         match2.Define_Match([0,0,0,2,1,0,2,1,0]);
         Assert(Minimax.Machine_Move(match2), 0);
     }
-
-    public static void ANN(){
-        var list = new List<Node>();
-        PosIterator.Minimax_Tree(new Node(), true, list);
-        var ann = new ArtificialNeuralNetwork();
-        ann.Training(list);
-        return;
-    }
-
+    
     public static void Assert(object obj1, object obj2){
         if(obj1.ToString() == obj2.ToString()){
             Console.WriteLine("Correct Assert.");

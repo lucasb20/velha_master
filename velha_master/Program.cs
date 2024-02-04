@@ -21,10 +21,6 @@ class Program
             Tests.Tests.Test_All();
             return 0;
         }
-        if(args[0] == "ann"){
-            Tests.Tests.ANN();
-            return 0;
-        }
 
         bool check = int.TryParse(args[0], out int choose);
 
@@ -32,8 +28,24 @@ class Program
 
         if(choose == 0){
             PlayGame.Play_Match(new HumanPlayer(), new HumanPlayer());
-        }else if(choose == 1){
+        }
+        else if(choose == 1){
             PlayGame.Play_Match(new HumanPlayer(), new MinimaxPlayer());
+        }
+        else if(choose == 2){
+            PlayGame.Play_Match(new MinimaxPlayer(), new HumanPlayer());
+        }
+        else if(choose == 3){
+            PlayGame.Play_Match(new MinimaxPlayer(), new MinimaxPlayer());
+        }
+        else if(choose == 4){
+            PlayGame.Play_Match(new CapivaraPlayer(), new MinimaxPlayer());
+        }
+        else if(choose == 5){
+            PlayGame.Play_Match(new MinimaxPlayer(), new CapivaraPlayer());
+        }
+        else{
+            Console.WriteLine("Escolha um modo válido.");
         }
 
         return 0;
