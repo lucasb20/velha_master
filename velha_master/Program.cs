@@ -1,5 +1,5 @@
 ﻿using velha_master.GameCreate;
-using velha_master.Logic;
+using velha_master.Interfaces;
 
 namespace velha_master;
 
@@ -30,12 +30,10 @@ class Program
 
         if(!check)return 1;
 
-        var partida = new TicTacToe();
-
         if(choose == 0){
             PlayGame.Play_Match(new HumanPlayer(), new HumanPlayer());
-        }else{
-            EngineGame.Play_vs_Engine(partida, choose);
+        }else if(choose == 1){
+            PlayGame.Play_Match(new HumanPlayer(), new MinimaxPlayer());
         }
 
         return 0;
