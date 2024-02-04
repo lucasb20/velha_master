@@ -12,6 +12,10 @@ public class ArtificialNeuralNetwork{
         _network.Randomize();
     }
 
+    public ArtificialNeuralNetwork(string path){
+        _network = StorageNetwork.LoadNetwork(path);
+    }
+
     public int Machine_Move(){
         return -1;
     }
